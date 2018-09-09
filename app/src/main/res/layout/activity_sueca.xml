@@ -1,0 +1,190 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_light"
+    android:gravity="center_horizontal"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="phpmysql.example.com.suecada.SuecaActivity" >
+
+
+
+         <ScrollView
+             android:id="@+id/ScrollView01"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_above="@+id/tvTotal"
+             android:layout_alignLeft="@+id/nPNos"
+             android:layout_alignStart="@id/nPNos"
+             android:layout_alignRight="@+id/btnRegistar"
+             android:layout_alignEnd="@id/btnRegistar"
+             android:scrollbars="vertical"
+             android:layout_below="@+id/tvPts"
+             tools:layout_editor_absoluteY="0dp"
+             tools:layout_editor_absoluteX="8dp">
+
+             <TableLayout
+                 android:id="@+id/tLPontos"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content" >
+             </TableLayout>
+         </ScrollView>
+
+
+    <TextView
+                android:text="@string/pontuacao"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/tvPts"
+                android:layout_centerVertical="true"
+                android:layout_alignLeft="@+id/nPNos"
+                android:layout_alignStart="@+id/nPNos"
+                android:layout_alignRight="@+id/nPVos"
+                android:layout_alignEnd="@+id/nPVos"
+                android:gravity="center"
+                android:textColor="@color/primary_text"
+                android:background="@color/icons"
+                tools:layout_editor_absoluteY="0dp"
+                tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/tvNos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary_text"
+        android:text="@string/nos"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_alignRight="@+id/nPNos"
+        android:layout_alignEnd="@+id/nPNos"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_alignParentTop="true" />
+
+    <NumberPicker
+        android:id="@+id/nPNos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="6150dp"
+        tools:layout_editor_absoluteX="2100dp"
+        android:layout_below="@+id/tvNos"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="18dp" />
+
+    <TextView
+        android:id="@+id/tvVos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary_text"
+        android:text="@string/vos"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_toRightOf="@+id/tvTotalVos"
+        android:layout_toEndOf="@+id/tvTotalVos" />
+
+    <Button
+                android:id="@+id/btnRegistar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="tabela"
+                android:background="@color/icons"
+                android:textColor="@color/secondary_text"
+                android:text="@string/registar"
+        tools:layout_editor_absoluteY="0dp"
+                tools:layout_editor_absoluteX="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/btnAnular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/icons"
+        android:textColor="@color/secondary_text"
+        android:onClick="anular"
+        android:text="@string/anular"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp"
+        android:elevation="10dp"
+        tools:targetApi="lollipop"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+        android:text="@string/total"
+                android:textColor="@color/primary_text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                tools:layout_editor_absoluteY="0dp"
+                tools:layout_editor_absoluteX="0dp"
+        android:layout_marginBottom="14dp"
+        android:layout_above="@+id/tvTotalNos"
+        android:layout_alignLeft="@+id/ScrollView01"
+        android:layout_alignStart="@+id/ScrollView01" />
+
+    <Button
+                android:id="@+id/btnReiniciar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="reiniciar"
+                android:background="@color/icons"
+                android:textColor="@color/secondary_text"
+                android:text="@string/reiniciar"
+        tools:layout_editor_absoluteY="0dp"
+                tools:layout_editor_absoluteX="0dp"
+        android:elevation="4dp"
+        tools:targetApi="lollipop"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+              android:id="@+id/tvTotalNos"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/primary_text"
+        android:text="@string/zero"
+              android:textAppearance="?android:attr/textAppearanceLarge"
+              tools:layout_editor_absoluteY="0dp"
+              tools:layout_editor_absoluteX="0dp"
+        android:layout_alignBaseline="@+id/tvTotalVos"
+        android:layout_alignBottom="@+id/tvTotalVos"
+        android:layout_alignRight="@+id/nPNos"
+        android:layout_alignEnd="@+id/nPNos" />
+
+    <TextView
+        android:id="@+id/tvTotalVos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zero"
+        android:textColor="@color/primary_text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_marginBottom="28dp"
+        android:layout_above="@+id/btnRegistar"
+        android:layout_toLeftOf="@+id/nPVos"
+        android:layout_toStartOf="@+id/nPVos" />
+
+    <NumberPicker
+        android:id="@+id/nPVos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="3128dp"
+        tools:layout_editor_absoluteX="1180dp"
+        android:layout_alignBaseline="@+id/nPNos"
+        android:layout_alignBottom="@+id/nPNos"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

@@ -1,0 +1,93 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="phpmysql.example.com.suecada.ItaListaFrag"
+    android:orientation="vertical"
+    android:id="@+id/LinearLayout"
+    android:background="@color/primary_light"
+    android:gravity="center">
+
+    <TextView
+        android:text="@string/rondas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtHistorico"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:textStyle="normal|bold|italic"
+        android:textAlignment="center"
+        android:textColor="@color/primary_text"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp" />
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:id="@+id/headerItaliana"
+        android:orientation="vertical"
+        android:weightSum="5"
+        android:paddingTop="25dp"
+        android:divider="@drawable/divider_list"
+        android:showDividers="beginning|middle|end"
+        android:dividerPadding="0dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="5"
+            android:id="@+id/headerRow">
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/headerJ1"
+                android:layout_weight="1"/>
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/headerJ2"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/headerj3"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/headerj4"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/headerj5"
+                android:layout_weight="1"/>
+
+        </TableRow>
+    </TableLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollViewIta">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tblPontuacaoIta">
+
+        </TableLayout>
+    </ScrollView>
+
+</LinearLayout>

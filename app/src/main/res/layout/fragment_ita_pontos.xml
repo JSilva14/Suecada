@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_ita_pontos"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_light"
+    tools:context="phpmysql.example.com.suecada.ItaPontosActivity">
+
+    <ToggleButton
+
+        android:layout_width="271dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tBJ1"
+        android:tag="j1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtPontuacao"
+        android:layout_marginTop="32dp"
+        android:checked="false"
+        android:textColor="@color/primary_text"
+        android:background="@color/icons" />
+
+    <ToggleButton
+
+        android:background="@color/icons"
+        android:textColor="@color/primary_text"
+        android:layout_width="271dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tBJ2"
+        android:tag="j2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tBJ1"
+        android:layout_marginTop="8dp" />
+
+    <ToggleButton
+
+        android:background="@color/icons"
+        android:textColor="@color/primary_text"
+        android:layout_width="271dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tBJ3"
+        android:tag="j3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tBJ2"
+        android:layout_marginTop="8dp" />
+
+    <ToggleButton
+
+        android:background="@color/icons"
+        android:textColor="@color/primary_text"
+        android:layout_width="271dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tbJ4"
+        android:tag="j4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tBJ3"
+        android:layout_marginTop="8dp" />
+
+    <ToggleButton
+
+        android:background="@color/icons"
+        android:textColor="@color/primary_text"
+        android:layout_width="271dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tBJ5"
+        android:tag="j5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tbJ4"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:text="@string/suecaItaliana"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtPontuacao"
+        android:textSize="36sp"
+        android:gravity="center"
+        android:textStyle="normal|bold|italic"
+        android:textAlignment="center"
+        android:textColor="@color/primary_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <EditText
+        android:text="EditText"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:textColor="@color/primary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:id="@+id/tVJ1"
+        tools:ignore="HardcodedText,TextFields"
+        app:layout_constraintLeft_toRightOf="@+id/tBJ1"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintTop_toTopOf="@+id/tBJ1"
+        android:textStyle="normal|bold" />
+
+    <EditText
+        android:text="EditText"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:inputType="none"
+        android:textColor="@color/primary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:id="@+id/tVJ2"
+        app:layout_constraintLeft_toRightOf="@+id/tBJ2"
+        app:layout_constraintTop_toBottomOf="@+id/tVJ1"
+        android:layout_marginTop="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        tools:ignore="HardcodedText"
+        android:textStyle="normal|bold"
+        android:textAllCaps="false" />
+
+    <EditText
+        android:text="EditText"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:inputType="none"
+        android:textColor="@color/primary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:id="@+id/tVJ3"
+        app:layout_constraintLeft_toRightOf="@+id/tBJ3"
+        app:layout_constraintTop_toBottomOf="@+id/tVJ2"
+        android:layout_marginTop="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        tools:ignore="HardcodedText"
+        android:textStyle="normal|bold" />
+
+    <EditText
+        android:text="EditText"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:inputType="none"
+        android:textColor="@color/primary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:id="@+id/tVJ4"
+        app:layout_constraintLeft_toRightOf="@+id/tbJ4"
+        app:layout_constraintTop_toBottomOf="@+id/tVJ3"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        tools:ignore="HardcodedText"
+        android:layout_marginTop="8dp"
+        android:textStyle="normal|bold" />
+
+    <EditText
+        android:text="EditText"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:inputType="none"
+        android:textColor="@color/primary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:id="@+id/tVJ5"
+        app:layout_constraintLeft_toRightOf="@+id/tBJ5"
+        app:layout_constraintTop_toBottomOf="@+id/tVJ4"
+        android:layout_marginTop="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        tools:ignore="HardcodedText"
+        android:textStyle="normal|bold" />
+
+    <Button
+        android:text="@string/mais1"
+        android:background="@color/icons"
+        android:textColor="@color/primary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tBJ5"
+        android:layout_marginTop="24dp" />
+
+    <Button
+        android:text="@string/mais2"
+        android:background="@color/icons"
+        android:textColor="@color/primary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn2"
+        app:layout_constraintLeft_toRightOf="@+id/btn1"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tBJ5"
+        android:layout_marginTop="24dp"
+        app:layout_constraintRight_toLeftOf="@+id/btn4"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <Button
+        android:text="@string/mais4"
+        android:background="@color/icons"
+        android:textColor="@color/primary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn4"
+        app:layout_constraintTop_toBottomOf="@+id/tBJ5"
+        android:layout_marginTop="24dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <Button
+        android:text="@string/menos1"
+        android:background="@color/icons"
+        android:textColor="@color/primary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnMenos1"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/btn1" />
+
+    <Button
+        android:text="@string/menos2"
+        android:background="@color/icons"
+        android:textColor="@color/primary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnMenos2"
+        app:layout_constraintLeft_toRightOf="@+id/btnMenos1"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/btn2"
+        android:layout_marginTop="8dp"
+        app:layout_constraintRight_toLeftOf="@+id/btnMenos4"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <Button
+        android:text="@string/menos4"
+        android:background="@color/icons"
+        android:textColor="@color/primary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnMenos4"
+        app:layout_constraintTop_toBottomOf="@+id/btn4"
+        android:layout_marginTop="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSairI"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/primary_text"
+        android:background="@color/icons"
+        android:text="@string/sair"
+        android:onClick="sair"
+        />
+
+    <Button
+        android:text="@string/anular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAnularIta"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/primary_text"
+        android:background="@color/icons"/>
+
+    <Button
+        android:text="@string/reiniciar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnReiniciarIta"
+        android:background="@color/icons"
+        android:textColor="@color/primary_text"
+        app:layout_constraintRight_toLeftOf="@+id/btnAnularIta"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/btnSairI"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:background="@drawable/ic_stat_name"
+        android:id="@+id/btnEditar"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_width="50dp" />
+</android.support.constraint.ConstraintLayout>
