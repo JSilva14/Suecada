@@ -1,4 +1,4 @@
-package phpmysql.example.com.suecada;
+package suecada.example.com.suecada;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,25 +12,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-
-public class ItaPontosRankedActivity extends AppCompatActivity {
-
-
-
+public class ItaPontosActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_pager);
+        setContentView(suecada.example.com.suecada.R.layout.view_pager);
 
         Toast.makeText(getApplicationContext(), "Arraste para a esquerda para consultar o histórico de pontuações por ronda!"
                 , Toast.LENGTH_LONG).show();
 
+
+
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        final ViewPager mViewPager = (ViewPager) findViewById(suecada.example.com.suecada.R.id.view_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+
 
     }
 
@@ -91,18 +91,18 @@ public class ItaPontosRankedActivity extends AppCompatActivity {
                     String jogador3 = intent.getExtras().getString("jogador3");
                     String jogador4 = intent.getExtras().getString("jogador4");
                     String jogador5 = intent.getExtras().getString("jogador5");
-                    ItaPontosRankedFrag itaPontosRankedFrag = ItaPontosRankedFrag.newInstance();
+                    ItaPontosFrag itaPontosFrag = ItaPontosFrag.newInstance();
                     Bundle bundle = new Bundle();
-                    bundle.putString("jogador1", jogador1.trim());
-                    bundle.putString("jogador2", jogador2.trim());
-                    bundle.putString("jogador3", jogador3.trim());
-                    bundle.putString("jogador4", jogador4.trim());
-                    bundle.putString("jogador5", jogador5.trim());
+                    bundle.putString("jogador1", jogador1);
+                    bundle.putString("jogador2", jogador2);
+                    bundle.putString("jogador3", jogador3);
+                    bundle.putString("jogador4", jogador4);
+                    bundle.putString("jogador5", jogador5);
                     // set Fragmentclass Arguments
 
-                    itaPontosRankedFrag.setArguments(bundle);
+                    itaPontosFrag.setArguments(bundle);
 
-                    return itaPontosRankedFrag;
+                    return itaPontosFrag;
                 case 1:
 
                     intent = getIntent();
@@ -112,20 +112,18 @@ public class ItaPontosRankedActivity extends AppCompatActivity {
                     jogador3 = intent.getExtras().getString("jogador3");
                     jogador4 = intent.getExtras().getString("jogador4");
                     jogador5 = intent.getExtras().getString("jogador5");
-                    ItaListaRankedFrag itaListaRankedFrag;
-                    itaListaRankedFrag = ItaListaRankedFrag.newInstance();
+                    ItaListaFrag itaLista;
+                    itaLista = ItaListaFrag.newInstance();
                     bundle = new Bundle();
-                    bundle.putString("jogador1", jogador1.trim());
-                    bundle.putString("jogador2", jogador2.trim());
-                    bundle.putString("jogador3", jogador3.trim());
-                    bundle.putString("jogador4", jogador4.trim());
-                    bundle.putString("jogador5", jogador5.trim());
-                    // set Fragmentclass Arguments
+                    bundle.putString("jogador1", jogador1);
+                    bundle.putString("jogador2", jogador2);
+                    bundle.putString("jogador3", jogador3);
+                    bundle.putString("jogador4", jogador4);
+                    bundle.putString("jogador5", jogador5);
 
+                    itaLista.setArguments(bundle);
 
-                    itaListaRankedFrag.setArguments(bundle);
-
-                    return itaListaRankedFrag;
+                    return itaLista;
             }
             return null;
         }

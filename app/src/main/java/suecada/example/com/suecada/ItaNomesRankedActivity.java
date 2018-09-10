@@ -1,4 +1,4 @@
-package phpmysql.example.com.suecada;
+package suecada.example.com.suecada;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +24,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static phpmysql.example.com.suecada.SuecaActivity.buttonEffect;
+import static suecada.example.com.suecada.SuecaActivity.buttonEffect;
 
 public class ItaNomesRankedActivity extends AppCompatActivity {
 
@@ -37,9 +37,9 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ita_nomes_ranked);
+        setContentView(suecada.example.com.suecada.R.layout.activity_ita_nomes_ranked);
 
-        Button seguinte = (Button) findViewById(R.id.btnrSeguinte);
+        Button seguinte = (Button) findViewById(suecada.example.com.suecada.R.id.btnrSeguinte);
         buttonEffect(seguinte);
         JOGADORES.clear();
         getJogadores();
@@ -49,21 +49,21 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
                 android.R.layout.simple_dropdown_item_1line, JOGADORES);
 
         AutoCompleteTextView j1 = (AutoCompleteTextView)
-                findViewById(R.id.actvj1);
+                findViewById(suecada.example.com.suecada.R.id.actvj1);
         AutoCompleteTextView j2 = (AutoCompleteTextView)
-                findViewById(R.id.actvj2);
+                findViewById(suecada.example.com.suecada.R.id.actvj2);
         AutoCompleteTextView j3 = (AutoCompleteTextView)
-                findViewById(R.id.actvj3);
+                findViewById(suecada.example.com.suecada.R.id.actvj3);
         AutoCompleteTextView j4 = (AutoCompleteTextView)
-                findViewById(R.id.actvj4);
+                findViewById(suecada.example.com.suecada.R.id.actvj4);
         AutoCompleteTextView j5 = (AutoCompleteTextView)
-                findViewById(R.id.actvj5);
+                findViewById(suecada.example.com.suecada.R.id.actvj5);
 
-        j1.setDropDownBackgroundResource(R.color.primary_light);
-        j2.setDropDownBackgroundResource(R.color.primary_light);
-        j3.setDropDownBackgroundResource(R.color.primary_light);
-        j4.setDropDownBackgroundResource(R.color.primary_light);
-        j5.setDropDownBackgroundResource(R.color.primary_light);
+        j1.setDropDownBackgroundResource(suecada.example.com.suecada.R.color.primary_light);
+        j2.setDropDownBackgroundResource(suecada.example.com.suecada.R.color.primary_light);
+        j3.setDropDownBackgroundResource(suecada.example.com.suecada.R.color.primary_light);
+        j4.setDropDownBackgroundResource(suecada.example.com.suecada.R.color.primary_light);
+        j5.setDropDownBackgroundResource(suecada.example.com.suecada.R.color.primary_light);
 
         j1.setAdapter(adapter);
         j2.setAdapter(adapter);
@@ -121,11 +121,11 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
 
     public Intent guardaNomesRanked(View view) {
 
-        this.j1 = (AutoCompleteTextView) findViewById(R.id.actvj1);
-        this.j2 = (AutoCompleteTextView) findViewById(R.id.actvj2);
-        this.j3 = (AutoCompleteTextView) findViewById(R.id.actvj3);
-        this.j4 = (AutoCompleteTextView) findViewById(R.id.actvj4);
-        this.j5 = (AutoCompleteTextView) findViewById(R.id.actvj5);
+        this.j1 = (AutoCompleteTextView) findViewById(suecada.example.com.suecada.R.id.actvj1);
+        this.j2 = (AutoCompleteTextView) findViewById(suecada.example.com.suecada.R.id.actvj2);
+        this.j3 = (AutoCompleteTextView) findViewById(suecada.example.com.suecada.R.id.actvj3);
+        this.j4 = (AutoCompleteTextView) findViewById(suecada.example.com.suecada.R.id.actvj4);
+        this.j5 = (AutoCompleteTextView) findViewById(suecada.example.com.suecada.R.id.actvj5);
 
 
         this.j1n = this.j1.getText().toString();

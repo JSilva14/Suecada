@@ -1,4 +1,4 @@
-package phpmysql.example.com.suecada;
+package suecada.example.com.suecada;
 
 class Config {
 
@@ -6,7 +6,7 @@ class Config {
     private static final String SERVER_URL = "http://192.168.1.6/suecada/";
 
     //URL to our login.php file
-    static final String LOGIN_URL = SERVER_URL + "/login.php";
+    static final String LOGIN_URL = SERVER_URL + "/loginhash.php";
 
     //Keys for email and password as defined in our $_POST['key'] in login.php
     static final String KEY_GRUPO = "grupo";

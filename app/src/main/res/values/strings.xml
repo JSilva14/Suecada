@@ -2,9 +2,9 @@
     <string name="app_name">Suecada</string>
     <string name="sueca">Sueca</string>
     <string name="suecaItaliana">Sueca Italiana</string>
-    <string name="jogarRanqueado">Jogar Ranqueado:</string>
+    <string name="Online">Online:</string>
     <string name="consultarRanking">Consultar Ranking</string>
-    <string name="jogarOffline">Jogar Offline:</string>
+    <string name="Offline">Offline:</string>
     <string name="jogos">Jogos:</string>
     <string name="jogador1">Jogador 1</string>
     <string name="jogador2">Jogador 2</string>
@@ -35,6 +35,8 @@
     <string name="rondas">Pontuações por Ronda</string>
     <string name="efetuar_login">Efetuar Login</string>
     <string name="terminar">Terminar</string>
+    <string name="gerir_grupo">Gerir Grupo</string>
+    <string name="jogadores_grupo">Jogadores no Grupo</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

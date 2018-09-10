@@ -1,4 +1,4 @@
-package phpmysql.example.com.suecada;
+package suecada.example.com.suecada;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import static phpmysql.example.com.suecada.SuecaActivity.buttonEffect;
+import static suecada.example.com.suecada.SuecaActivity.buttonEffect;
 
 public class ItaNomesActivity extends Activity {
     EditText j1;
@@ -26,18 +26,18 @@ public class ItaNomesActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ita_nomes);
-        btnSeguinte = (Button) findViewById(R.id.btnSeguinte);
+        setContentView(suecada.example.com.suecada.R.layout.activity_ita_nomes);
+        btnSeguinte = (Button) findViewById(suecada.example.com.suecada.R.id.btnSeguinte);
         buttonEffect(btnSeguinte);
     }
 
     public Intent guardaNomes(View view) {
 
-        this.j1 = (EditText) findViewById(R.id.etj1);
-        this.j2 = (EditText) findViewById(R.id.etj2);
-        this.j3 = (EditText) findViewById(R.id.etj3);
-        this.j4 = (EditText) findViewById(R.id.etj4);
-        this.j5 = (EditText) findViewById(R.id.etj5);
+        this.j1 = (EditText) findViewById(suecada.example.com.suecada.R.id.etj1);
+        this.j2 = (EditText) findViewById(suecada.example.com.suecada.R.id.etj2);
+        this.j3 = (EditText) findViewById(suecada.example.com.suecada.R.id.etj3);
+        this.j4 = (EditText) findViewById(suecada.example.com.suecada.R.id.etj4);
+        this.j5 = (EditText) findViewById(suecada.example.com.suecada.R.id.etj5);
 
 
         this.j1n = this.j1.getText().toString().trim();

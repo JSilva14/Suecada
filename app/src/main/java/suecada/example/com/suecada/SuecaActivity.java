@@ -1,4 +1,4 @@
-package phpmysql.example.com.suecada;
+package suecada.example.com.suecada;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -31,15 +31,15 @@ public class SuecaActivity extends Activity {
 
     public void setUp() {
 
-        registar = (Button) findViewById(R.id.btnRegistar);
-        reiniciar = (Button) findViewById(R.id.btnReiniciar);
-        anular = (Button) findViewById(R.id.btnAnular);
+        registar = (Button) findViewById(suecada.example.com.suecada.R.id.btnRegistar);
+        reiniciar = (Button) findViewById(suecada.example.com.suecada.R.id.btnReiniciar);
+        anular = (Button) findViewById(suecada.example.com.suecada.R.id.btnAnular);
         buttonEffect(reiniciar);
         buttonEffect(registar);
         buttonEffect(anular);
-        npNos = (NumberPicker) findViewById(R.id.nPNos);
-        npVos = (NumberPicker) findViewById(R.id.nPVos);
-        pontuacao = (TableLayout) findViewById(R.id.tLPontos);
+        npNos = (NumberPicker) findViewById(suecada.example.com.suecada.R.id.nPNos);
+        npVos = (NumberPicker) findViewById(suecada.example.com.suecada.R.id.nPVos);
+        pontuacao = (TableLayout) findViewById(suecada.example.com.suecada.R.id.tLPontos);
         String valores[] = {"0", "1", "2", "4"};
 
         npNos.setMaxValue(3);
@@ -79,7 +79,7 @@ public class SuecaActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sueca);
+        setContentView(suecada.example.com.suecada.R.layout.activity_sueca);
         setUp();
 
 
@@ -122,8 +122,8 @@ public class SuecaActivity extends Activity {
         String quatro = "4";
         pontos_nos = String.valueOf(npNos.getValue());
         pontos_vos = String.valueOf(npVos.getValue());
-        tvNos = (TextView) findViewById(R.id.tvTotalNos);
-        tvVos = (TextView) findViewById(R.id.tvTotalVos);
+        tvNos = (TextView) findViewById(suecada.example.com.suecada.R.id.tvTotalNos);
+        tvVos = (TextView) findViewById(suecada.example.com.suecada.R.id.tvTotalVos);
         int nos_inc, vos_inc;
         nos_inc = Integer.valueOf(tvNos.getText().toString());
         vos_inc = Integer.valueOf(tvVos.getText().toString());
@@ -190,7 +190,7 @@ public class SuecaActivity extends Activity {
         pontuacao.addView(tr);
         pontuacao.setStretchAllColumns(true);
 
-        final ScrollView scrollview = ((ScrollView) findViewById(R.id.ScrollView01));
+        final ScrollView scrollview = ((ScrollView) findViewById(suecada.example.com.suecada.R.id.ScrollView01));
         scrollview.post(new Runnable() {
             @Override
             public void run() {
@@ -258,8 +258,8 @@ public class SuecaActivity extends Activity {
             TextView tv1 = (TextView) row1.getChildAt(1);
             prev_vos = Integer.parseInt(tv1.getText().toString());
 
-            tvNos = (TextView) findViewById(R.id.tvTotalNos);
-            tvVos = (TextView) findViewById(R.id.tvTotalVos);
+            tvNos = (TextView) findViewById(suecada.example.com.suecada.R.id.tvTotalNos);
+            tvVos = (TextView) findViewById(suecada.example.com.suecada.R.id.tvTotalVos);
             int nos_inc, vos_inc;
             nos_inc = Integer.valueOf(tvNos.getText().toString());
             vos_inc = Integer.valueOf(tvVos.getText().toString());

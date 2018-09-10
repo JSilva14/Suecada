@@ -1,4 +1,4 @@
-package phpmysql.example.com.suecada;
+package suecada.example.com.suecada;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,14 +18,14 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import static phpmysql.example.com.suecada.R.id.headerItalianaR;
-import static phpmysql.example.com.suecada.R.id.headerJ1R;
-import static phpmysql.example.com.suecada.R.id.headerJ2R;
-import static phpmysql.example.com.suecada.R.id.headerRowR;
-import static phpmysql.example.com.suecada.R.id.headerj3R;
-import static phpmysql.example.com.suecada.R.id.headerj4R;
-import static phpmysql.example.com.suecada.R.id.headerj5R;
-import static phpmysql.example.com.suecada.R.id.tblPontuacaoItaR;
+import static suecada.example.com.suecada.R.id.headerItalianaR;
+import static suecada.example.com.suecada.R.id.headerJ1R;
+import static suecada.example.com.suecada.R.id.headerJ2R;
+import static suecada.example.com.suecada.R.id.headerRowR;
+import static suecada.example.com.suecada.R.id.headerj3R;
+import static suecada.example.com.suecada.R.id.headerj4R;
+import static suecada.example.com.suecada.R.id.headerj5R;
+import static suecada.example.com.suecada.R.id.tblPontuacaoItaR;
 
 
 public class ItaListaRankedFrag extends Fragment {
@@ -53,7 +53,7 @@ public class ItaListaRankedFrag extends Fragment {
 
         EventBus.getDefault().register(this); //Subscreve o fragmento ao EventBus para que
         // possa receber informação do fragmento ItaPontosFrag
-        View rootView = inflater.inflate(R.layout.fragment_ita_lista_ranked, container, false);
+        View rootView = inflater.inflate(suecada.example.com.suecada.R.layout.fragment_ita_lista_ranked, container, false);
 
         tvj1 = (TextView) rootView.findViewById(headerJ1R);
         tvj2 = (TextView) rootView.findViewById(headerJ2R);
@@ -65,7 +65,7 @@ public class ItaListaRankedFrag extends Fragment {
         header = (TableLayout) rootView.findViewById(headerItalianaR);
         jogadores = (TableRow) rootView.findViewById(headerRowR);
         tabelaPontosIta = (TableLayout) rootView.findViewById(tblPontuacaoItaR);
-        scrollviewIta = ((ScrollView) rootView.findViewById(R.id.scrollViewItaR));
+        scrollviewIta = ((ScrollView) rootView.findViewById(suecada.example.com.suecada.R.id.scrollViewItaR));
 
         jogadores.setLayoutParams(new TableRow.LayoutParams(
                 (TableLayout.LayoutParams.MATCH_PARENT),

@@ -1,12 +1,10 @@
-package phpmysql.example.com.suecada;
+package suecada.example.com.suecada;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +20,10 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static phpmysql.example.com.suecada.SuecaActivity.buttonEffect;
+import static suecada.example.com.suecada.SuecaActivity.buttonEffect;
 
 
-public class ItaPontosFrag extends Fragment {
+public class ItaPontosRankedFrag extends Fragment {
 
     public ToggleButton j1, j2, j3, j4, j5;
     public TextView p1, p2, p3, p4, p5;
@@ -37,59 +35,59 @@ public class ItaPontosFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_ita_pontos, container, false);
+        View rootView = inflater.inflate(suecada.example.com.suecada.R.layout.fragment_ita_pontos_ranked, container, false);
 
         //  Log.d("RONDA",getArguments().getString("jogador1"));
 
-        j1 = (ToggleButton) rootView.findViewById(R.id.tBJ1);
-        j2 = (ToggleButton) rootView.findViewById(R.id.tBJ2);
-        j3 = (ToggleButton) rootView.findViewById(R.id.tBJ3);
-        j4 = (ToggleButton) rootView.findViewById(R.id.tbJ4);
-        j5 = (ToggleButton) rootView.findViewById(R.id.tBJ5);
-        p1 = (TextView) rootView.findViewById(R.id.tVJ1);
-        p2 = (TextView) rootView.findViewById(R.id.tVJ2);
-        p3 = (TextView) rootView.findViewById(R.id.tVJ3);
-        p4 = (TextView) rootView.findViewById(R.id.tVJ4);
-        p5 = (TextView) rootView.findViewById(R.id.tVJ5);
+        j1 = (ToggleButton) rootView.findViewById(suecada.example.com.suecada.R.id.tBJ1R);
+        j2 = (ToggleButton) rootView.findViewById(suecada.example.com.suecada.R.id.tBJ2R);
+        j3 = (ToggleButton) rootView.findViewById(suecada.example.com.suecada.R.id.tBJ3R);
+        j4 = (ToggleButton) rootView.findViewById(suecada.example.com.suecada.R.id.tbJ4R);
+        j5 = (ToggleButton) rootView.findViewById(suecada.example.com.suecada.R.id.tBJ5R);
+        p1 = (TextView) rootView.findViewById(suecada.example.com.suecada.R.id.tVJ1R);
+        p2 = (TextView) rootView.findViewById(suecada.example.com.suecada.R.id.tVJ2R);
+        p3 = (TextView) rootView.findViewById(suecada.example.com.suecada.R.id.tVJ3R);
+        p4 = (TextView) rootView.findViewById(suecada.example.com.suecada.R.id.tVJ4R);
+        p5 = (TextView) rootView.findViewById(suecada.example.com.suecada.R.id.tVJ5R);
 
-        Button editar = (Button) rootView.findViewById(R.id.btnEditar);
+        /*Button editar = (Button) rootView.findViewById(R.id.btnEditarR);
         editar.setOnClickListener(editarClickListener);
-        buttonEffect(editar);
+        buttonEffect(editar);*/
 
-        Button reiniciar = (Button) rootView.findViewById(R.id.btnReiniciarIta);
+        Button reiniciar = (Button) rootView.findViewById(suecada.example.com.suecada.R.id.btnReiniciarItaR);
         reiniciar.setOnClickListener(reiniciarClickListener);
         buttonEffect(reiniciar);
 
-        Button anular = (Button) rootView.findViewById(R.id.btnAnularIta);
+        Button anular = (Button) rootView.findViewById(suecada.example.com.suecada.R.id.btnAnularItaR);
         anular.setOnClickListener(anularClickListener);
         buttonEffect(anular);
 
-        Button soma1 = (Button) rootView.findViewById(R.id.btn1);
+        Button soma1 = (Button) rootView.findViewById(suecada.example.com.suecada.R.id.btn1R);
         soma1.setOnClickListener(soma1ClickListener);
         buttonEffect(soma1);
 
 
-        Button soma2 = (Button) rootView.findViewById(R.id.btn2);
+        Button soma2 = (Button) rootView.findViewById(suecada.example.com.suecada.R.id.btn2R);
         soma2.setOnClickListener(soma2ClickListener);
         buttonEffect(soma2);
 
-        Button soma4 = (Button) rootView.findViewById(R.id.btn4);
+        Button soma4 = (Button) rootView.findViewById(suecada.example.com.suecada.R.id.btn4R);
         soma4.setOnClickListener(soma4ClickListener);
         buttonEffect(soma4);
 
-        Button sub1 = (Button) rootView.findViewById(R.id.btnMenos1);
+        Button sub1 = (Button) rootView.findViewById(suecada.example.com.suecada.R.id.btnMenos1R);
         sub1.setOnClickListener(sub1ClickListener);
         buttonEffect(sub1);
 
-        Button sub2 = (Button) rootView.findViewById(R.id.btnMenos2);
+        Button sub2 = (Button) rootView.findViewById(suecada.example.com.suecada.R.id.btnMenos2R);
         sub2.setOnClickListener(sub2ClickListener);
         buttonEffect(sub2);
 
-        Button sub4 = (Button) rootView.findViewById(R.id.btnMenos4);
+        Button sub4 = (Button) rootView.findViewById(suecada.example.com.suecada.R.id.btnMenos4R);
         sub4.setOnClickListener(sub4ClickListener);
         buttonEffect(sub4);
 
-        Button sair = (Button) rootView.findViewById(R.id.btnSairI);
+        Button sair = (Button) rootView.findViewById(suecada.example.com.suecada.R.id.btnSairIR);
         buttonEffect(sair);
 
         setUp();
@@ -142,11 +140,7 @@ public class ItaPontosFrag extends Fragment {
         }
     };
 
-    private View.OnClickListener editarClickListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            editar();
-        }
-    };
+
 
     private View.OnClickListener reiniciarClickListener = new View.OnClickListener() {
         public void onClick(View v) {
@@ -633,8 +627,8 @@ public class ItaPontosFrag extends Fragment {
             ronda[4] = -pts;
             historico.add(Arrays.toString(ronda));
 
-                EventBus.getDefault().post(new rondaTerminadaEvent(ronda[0], ronda[1], ronda[2], ronda[3]
-                        , ronda[4]));
+            EventBus.getDefault().post(new rondaTerminadaEvent(ronda[0], ronda[1], ronda[2], ronda[3]
+                    , ronda[4]));
 
             //Log.d("RONDA", "sub: " + Arrays.toString(ronda));
 
@@ -727,10 +721,7 @@ public class ItaPontosFrag extends Fragment {
             //ronda = new int[ronda.length];
             Arrays.fill(ronda, 0);
 
-
-
             EventBus.getDefault().post(new rondaAnuladaEvent());
-
 
             Toast.makeText(getActivity(), "Anulado!", Toast.LENGTH_SHORT).show();
         }
@@ -766,46 +757,12 @@ public class ItaPontosFrag extends Fragment {
 
     }
 
-    //classe EvetBus para enviar nomes editados para a tabela no fragmento itaListaFrag
-    public class jogadorEditadoEvent {
-        private final String jogador1;
-        private final String jogador2;
-        private final String jogador3;
-        private final String jogador4;
-        private final String jogador5;
-
-
-         jogadorEditadoEvent(String jogador1, String jogador2, String jogador3,
-                                   String jogador4, String jogador5) {
-            this.jogador1 = jogador1;
-            this.jogador2 = jogador2;
-            this.jogador3 = jogador3;
-            this.jogador4 = jogador4;
-            this.jogador5 = jogador5;
-        }
-
-        public String getJogador1() {
-            return jogador1;
-        }
-        public String getJogador2() {
-            return jogador2;
-        }
-        public String getJogador3() {
-            return jogador3;
-        }
-        public String getJogador4() {
-            return jogador4;
-        }
-        public String getJogador5() {
-            return jogador5;
-        }
-    }
 
     public class rondaTerminadaEvent {
         private final int pontosj1, pontosj2, pontosj3, pontosj4, pontosj5;
 
 
-        private rondaTerminadaEvent(int pontosj1, int pontosj2, int pontosj3, int pontosj4,
+        public rondaTerminadaEvent(int pontosj1, int pontosj2, int pontosj3, int pontosj4,
                                    int pontosj5) {
             this.pontosj1 = pontosj1;
             this.pontosj2 = pontosj2;
@@ -842,106 +799,12 @@ public class ItaPontosFrag extends Fragment {
         }
     }
 
-    public void editar() {
-        final Dialog dialog = new Dialog(getActivity());
-        dialog.setContentView(R.layout.editar_dialog);
-        dialog.setTitle("Editar Jogadores");
 
-
-
-        final TextView editJ1 = (TextView) dialog.findViewById(R.id.editJ1);
-        final TextView editJ2 = (TextView) dialog.findViewById(R.id.editJ2);
-        final TextView editJ3 = (TextView) dialog.findViewById(R.id.editJ3);
-        final TextView editJ4 = (TextView) dialog.findViewById(R.id.editJ4);
-        final TextView editJ5 = (TextView) dialog.findViewById(R.id.editJ5);
-
-        //Limitar num de carateres
-        int maxLength = 8;
-        editJ1.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
-        editJ2.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
-        editJ3.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
-        editJ4.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
-        editJ5.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
-
-        String nomej1, nomej2, nomej3, nomej4, nomej5;
-
-        nomej1 = j1.getText().toString().trim();
-        nomej2 = j2.getText().toString().trim();
-        nomej3 = j3.getText().toString().trim();
-        nomej4 = j4.getText().toString().trim();
-        nomej5 = j5.getText().toString().trim();
-
-        editJ1.setText(nomej1);
-        editJ2.setText(nomej2);
-        editJ3.setText(nomej3);
-        editJ4.setText(nomej4);
-        editJ5.setText(nomej5);
-
-        Button btnEditOk = (Button) dialog.findViewById(R.id.btnEditOk);
-        // if button is clicked, close the custom dialog
-        btnEditOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String nomeJ1Editado, nomeJ2Editado, nomeJ3Editado,
-                        nomeJ4Editado, nomeJ5Editado;
-
-                nomeJ1Editado =editJ1.getText().toString().trim();
-                nomeJ2Editado =editJ2.getText().toString().trim();
-                nomeJ3Editado =editJ3.getText().toString().trim();
-                nomeJ4Editado =editJ4.getText().toString().trim();
-                nomeJ5Editado =editJ5.getText().toString().trim();
-
-                if (nomeJ1Editado.equals("") || nomeJ2Editado.equals("")
-                        || editJ3.getText().toString().trim().equals("") || nomeJ4Editado.equals("")
-                        || nomeJ5Editado.equals("")) {
-                    Toast.makeText(getActivity(), "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
-                } else if (nomeJ1Editado.equals(nomeJ2Editado)
-                        || nomeJ1Editado.equals(nomeJ3Editado)
-                        || nomeJ1Editado.equals(nomeJ4Editado)
-                        || nomeJ1Editado.equals(nomeJ5Editado)
-                        || nomeJ2Editado.equals(nomeJ3Editado)
-                        || nomeJ2Editado.equals(nomeJ4Editado)
-                        || nomeJ2Editado.equals(nomeJ5Editado)
-                        || nomeJ3Editado.equals(nomeJ4Editado)
-                        || nomeJ3Editado.equals(nomeJ5Editado)
-                        || nomeJ4Editado.equals(nomeJ5Editado)) {
-                    Toast.makeText(getActivity(), "Nome de jogador repetido!", Toast.LENGTH_SHORT).show();
-                } else {
-                    j1.setText(nomeJ1Editado);
-                    j1.setTextOn(nomeJ1Editado);
-                    j1.setTextOff(nomeJ1Editado);
-                    j2.setText(nomeJ2Editado);
-                    j2.setTextOn(nomeJ2Editado);
-                    j2.setTextOff(nomeJ2Editado);
-                    j3.setText(nomeJ3Editado);
-                    j3.setTextOn(nomeJ3Editado);
-                    j3.setTextOff(nomeJ3Editado);
-                    j4.setText(nomeJ4Editado);
-                    j4.setTextOn(nomeJ4Editado);
-                    j4.setTextOff(nomeJ4Editado);
-                    j5.setText(nomeJ5Editado);
-                    j5.setTextOn(nomeJ5Editado);
-                    j5.setTextOff(nomeJ5Editado);
-
-                    EventBus.getDefault().post(new jogadorEditadoEvent(nomeJ1Editado,nomeJ2Editado,
-                    nomeJ3Editado, nomeJ4Editado, nomeJ5Editado));
-
-                    dialog.dismiss();
-                }
-
-
-            }
-        });
-
-        dialog.show();
+    public static ItaPontosRankedFrag newInstance() {
+        return new ItaPontosRankedFrag();
     }
 
-    public static ItaPontosFrag newInstance() {
-        return new ItaPontosFrag();
-    }
-
-    public ItaPontosFrag() {
+    public ItaPontosRankedFrag() {
     }
 
     public void setUp() {
@@ -1053,4 +916,7 @@ public class ItaPontosFrag extends Fragment {
             }
         }
     };
+
+
 }
+

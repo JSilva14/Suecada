@@ -1,4 +1,4 @@
-package phpmysql.example.com.suecada;
+package suecada.example.com.suecada;
 
 
 import android.bluetooth.BluetoothAdapter;
@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
-import static phpmysql.example.com.suecada.R.layout.activity_menu_ranked;
+import static suecada.example.com.suecada.R.layout.activity_menu_ranked;
 
 public class MenuRankedActivity extends AppCompatActivity {
 
@@ -32,15 +32,15 @@ public class MenuRankedActivity extends AppCompatActivity {
 
 
         //Associar views
-        tvGrupoAtual = (TextView) findViewById(R.id.tvGrupoAtual);
-        btnLogout = (Button) findViewById(R.id.btnLogout);
+        tvGrupoAtual = (TextView) findViewById(suecada.example.com.suecada.R.id.btnGrupoAtual);
+        btnLogout = (Button) findViewById(suecada.example.com.suecada.R.id.btnLogout);
 
         //Inicializar sharedpreferences e obter o nome do grupo atual
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String grupo = sharedPreferences.getString(Config.GRUPO_SHARED_PREF, "Not Available");
 
         //Mostrar grupo atual
-        String ligado_como = getResources().getString(R.string.ligado_grupo);
+        String ligado_como = getResources().getString(suecada.example.com.suecada.R.string.ligado_grupo);
         String login_info = ligado_como + grupo;
         tvGrupoAtual.setText(login_info);
 

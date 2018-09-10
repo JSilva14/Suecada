@@ -1,4 +1,4 @@
-package phpmysql.example.com.suecada;
+package suecada.example.com.suecada;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,8 +26,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static phpmysql.example.com.suecada.Config.GRUPO_SHARED_PREF;
-import static phpmysql.example.com.suecada.SuecaActivity.buttonEffect;
+import static suecada.example.com.suecada.Config.GRUPO_SHARED_PREF;
+import static suecada.example.com.suecada.SuecaActivity.buttonEffect;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -41,12 +41,12 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(suecada.example.com.suecada.R.layout.activity_login);
 
-        etGrupo = (EditText) findViewById(R.id.eTNomeGrupo);
-        etPassword = (EditText) findViewById(R.id.eTPassword);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        loading = (ProgressBar) findViewById(R.id.progressBar);
+        etGrupo = (EditText) findViewById(suecada.example.com.suecada.R.id.eTNomeGrupo);
+        etPassword = (EditText) findViewById(suecada.example.com.suecada.R.id.eTPassword);
+        btnLogin = (Button) findViewById(suecada.example.com.suecada.R.id.btnLogin);
+        loading = (ProgressBar) findViewById(suecada.example.com.suecada.R.id.progressBar);
 
         btnLogin.setOnClickListener(loginClickListener);
         buttonEffect(btnLogin);
@@ -103,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                             //Starting profile activity
                             Intent intent = new Intent(LoginActivity.this, MenuRankedActivity.class);
                             startActivity(intent);
+                            finish();
 
                         } else {
                             //If the server response is not success
@@ -110,6 +111,8 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Grupo ou Password Inválidos!", Toast.LENGTH_LONG).show();
                             btnLogin.setVisibility(View.VISIBLE);
                             loading.setVisibility(View.GONE);
+                            etGrupo.setText("");
+                            etPassword.setText("");
                         }
                     }
                 },
@@ -138,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
         getIdGrupo();
-        finish();
+
     }
 
     private void getIdGrupo() {

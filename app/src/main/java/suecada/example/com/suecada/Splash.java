@@ -1,4 +1,4 @@
-package phpmysql.example.com.suecada;
+package suecada.example.com.suecada;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -13,9 +13,9 @@ public class Splash extends Activity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.activity_splash);
+        setContentView(suecada.example.com.suecada.R.layout.activity_splash);
         final ActivityOptions options;
-        View logo = findViewById(R.id.splashscreen);
+        View logo = findViewById(suecada.example.com.suecada.R.id.splashscreen);
         options = ActivityOptions
                 .makeSceneTransitionAnimation(this, logo, "logo");
 

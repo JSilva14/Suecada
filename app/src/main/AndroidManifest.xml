@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="phpmysql.example.com.suecada">
+    package="suecada.example.com.suecada">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -50,17 +50,20 @@
             android:name=".ItaNomesRankedActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
-        <activity android:name=".LoginActivity"
-            android:launchMode="singleTask"
+        <activity
+            android:name=".LoginActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CriarGrupoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
-        <activity android:name=".MenuOfflineActivity"
+        <activity
+            android:name=".MenuOfflineActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
+        <activity android:name=".ListarJogadores"></activity>
     </application>
 
 </manifest>

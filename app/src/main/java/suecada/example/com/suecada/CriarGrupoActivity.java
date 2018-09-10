@@ -1,4 +1,4 @@
-package phpmysql.example.com.suecada;
+package suecada.example.com.suecada;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -24,7 +24,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static phpmysql.example.com.suecada.SuecaActivity.buttonEffect;
+import static suecada.example.com.suecada.SuecaActivity.buttonEffect;
 
 public class CriarGrupoActivity extends AppCompatActivity {
 
@@ -38,13 +38,13 @@ public class CriarGrupoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_criar_grupo);
+        setContentView(suecada.example.com.suecada.R.layout.activity_criar_grupo);
 
-        spinner = (ProgressBar) findViewById(R.id.progressBar1);
-        eTNovoGrupo = (EditText) findViewById(R.id.eTNomeNovoGrupo);
-        eTNovaPassword = (EditText) findViewById(R.id.eTNovaPassword);
-        eTConfirmarPassword = (EditText) findViewById(R.id.eTConfirmarPassword);
-        criarGrupo = (Button) findViewById(R.id.btnCriarNovoGrupo);
+        spinner = (ProgressBar) findViewById(suecada.example.com.suecada.R.id.progressBar1);
+        eTNovoGrupo = (EditText) findViewById(suecada.example.com.suecada.R.id.eTNomeNovoGrupo);
+        eTNovaPassword = (EditText) findViewById(suecada.example.com.suecada.R.id.eTNovaPassword);
+        eTConfirmarPassword = (EditText) findViewById(suecada.example.com.suecada.R.id.eTConfirmarPassword);
+        criarGrupo = (Button) findViewById(suecada.example.com.suecada.R.id.btnCriarNovoGrupo);
         buttonEffect(criarGrupo);
         spinner.setVisibility(View.INVISIBLE);
     }
