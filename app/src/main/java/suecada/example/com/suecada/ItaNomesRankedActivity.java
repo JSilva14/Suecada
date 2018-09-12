@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -31,7 +32,7 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
     AutoCompleteTextView j1, j2, j3, j4, j5;
     String j1n, j2n, j3n, j4n, j5n;
 
-    List<String> JOGADORES = new ArrayList<>();
+    List<String> JogadoresList = new ArrayList<>();
 
 
     @Override
@@ -41,12 +42,14 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
 
         Button seguinte = (Button) findViewById(suecada.example.com.suecada.R.id.btnrSeguinte);
         buttonEffect(seguinte);
-        JOGADORES.clear();
-        getJogadores();
+        JogadoresList.clear();
+        getJogadoresList();
+
+
 
 
        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, JOGADORES);
+                android.R.layout.simple_dropdown_item_1line, JogadoresList);
 
         AutoCompleteTextView j1 = (AutoCompleteTextView)
                 findViewById(suecada.example.com.suecada.R.id.actvj1);
@@ -71,9 +74,19 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
         j4.setAdapter(adapter);
         j5.setAdapter(adapter);
 
+        //TESTE LOG conteudo arraylist
+        StringBuilder sb = new StringBuilder();
+        for (String s : JogadoresList){
+            sb.append(s);
+        }
+        if(JogadoresList.size()==0)
+            Log.d("tagitaliana",sb.toString()+"vazio");
+        else
+            Log.d("tagitaliana",sb.toString() + "nao vazio");
+
     }
 
-    private void getJogadores() {
+    private void getJogadoresList() {
 
         SharedPreferences sharedPreferences = ItaNomesRankedActivity.this.getSharedPreferences(
                 Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
@@ -97,24 +110,50 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+
     }
 
     private void showJSON(String response){
         String nome="";
         int i;
+
         try {
             JSONObject jsonObject = new JSONObject(response);
             JSONArray result = jsonObject.getJSONArray(Config.JSON_ARRAY_JOGADORES);
             for(i=0; i<result.length(); i++) {
+
+                //APAGAR TESTE
+                int tamanho_inicial =0;
+                int tamanho_final=0;
+
                 JSONObject grupoData = result.getJSONObject(i);
 
                 nome += grupoData.getString(Config.KEY_NOME);
-                JOGADORES.add(grupoData.getString(Config.KEY_NOME));
+                JogadoresList.add(grupoData.getString(Config.KEY_NOME));
+                tamanho_final= JogadoresList.size();
+
+                StringBuilder sb = new StringBuilder();
+                for (String s : JogadoresList){
+                    sb.append(s);
+                }
+                if (tamanho_final>tamanho_inicial) {
+                    tamanho_inicial += 1;
+                    Log.d("tagitaliana", "Posiçao " + i+1 + sb + "adicionado à Lista");
+                }
+                else{
+                    Log.d("tagitaliana", "O tamanho do array nao aumentou. Magia Negra");
+                }
+
+
+
+
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Toast.makeText(ItaNomesRankedActivity.this, "NOMES= " +nome,Toast.LENGTH_LONG).show();
+
     }
 
 
@@ -141,8 +180,8 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
         } else if (this.j1n.equals(this.j2n) || this.j1n.equals(this.j3n) || this.j1n.equals(this.j4n) || this.j1n.equals(this.j5n) || this.j2n.equals(this.j3n) || this.j2n.equals(this.j4n) || this.j2n.equals(this.j5n) || this.j3n.equals(this.j4n) || this.j3n.equals(this.j5n) || this.j4n.equals(this.j5n)) {
             Toast.makeText(getApplicationContext(), "Nome de jogador repetido!", Toast.LENGTH_SHORT).show();
         }
-        else if(!JOGADORES.contains(this.j1n) || !JOGADORES.contains(this.j2n) || !JOGADORES.contains(this.j3n)
-                || !JOGADORES.contains(this.j4n)|| !JOGADORES.contains(this.j5n)){
+        else if(!JogadoresList.contains(this.j1n) || !JogadoresList.contains(this.j2n) || !JogadoresList.contains(this.j3n)
+                || !JogadoresList.contains(this.j4n)|| !JogadoresList.contains(this.j5n)){
             Toast.makeText(getApplicationContext(), "Jogador não existente!", Toast.LENGTH_SHORT).show();
         } else {
             i.putExtra("jogador1", this.j1n);

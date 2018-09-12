@@ -89,6 +89,9 @@
         android:id="@+id/tvNomes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nomes"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="@string/escolher_nomes"
+        android:textSize="26sp"
+        android:gravity="center"
+        android:textStyle="normal|bold|italic"
+        android:textColor="@color/primary_text"/>
 </RelativeLayout>

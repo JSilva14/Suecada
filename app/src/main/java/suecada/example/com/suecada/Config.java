@@ -3,7 +3,7 @@ package suecada.example.com.suecada;
 class Config {
 
     //URL servidor
-    private static final String SERVER_URL = "http://192.168.1.6/suecada/";
+    private static final String SERVER_URL = "http://35.178.49.133/suecada/";
 
     //URL to our login.php file
     static final String LOGIN_URL = SERVER_URL + "/loginhash.php";

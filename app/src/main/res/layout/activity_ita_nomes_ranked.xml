@@ -99,6 +99,6 @@
         android:id="@+id/tvNomes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nomes"
+        android:text="@string/escolher_nomes"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 </RelativeLayout>

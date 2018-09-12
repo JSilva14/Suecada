@@ -3,6 +3,7 @@ package suecada.example.com.suecada;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -27,6 +28,8 @@ import java.util.Map;
 import static suecada.example.com.suecada.SuecaActivity.buttonEffect;
 
 public class CriarGrupoActivity extends AppCompatActivity {
+
+    private static final String TAG = "SUECADALOG";
 
     EditText eTNovoGrupo, eTNovaPassword, eTConfirmarPassword;
 
@@ -74,6 +77,7 @@ public class CriarGrupoActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
                             try {
+                                Log.d(TAG,"mensagem" + response);
                                 JSONObject jsonObject = new JSONObject(response);
                                 String sucesso = jsonObject.getString("sucesso");
                                 String mensagemErro = jsonObject.getString("mensagem");

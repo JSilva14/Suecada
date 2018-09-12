@@ -128,6 +128,13 @@ public class MenuRankedActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    public void GerirGrupo(View v) {
+
+        Intent myIntent = new Intent(MenuRankedActivity.this, GerirGrupoActivity.class);
+
+        startActivity(myIntent);
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
