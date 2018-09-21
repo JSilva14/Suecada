@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -32,34 +31,33 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
     AutoCompleteTextView j1, j2, j3, j4, j5;
     String j1n, j2n, j3n, j4n, j5n;
 
-    List<String> JogadoresList = new ArrayList<>();
+    List<String> listaJogadores = new ArrayList<>();
+    ArrayAdapter<String> adapter;
 
+    Context mContext=this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(suecada.example.com.suecada.R.layout.activity_ita_nomes_ranked);
 
+        SharedPreferences sharedPreferences = ItaNomesRankedActivity.this.getSharedPreferences(
+                Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        String grupoAtualID=sharedPreferences.getString(Config.GRUPOID_SHARED_PREF,"Not Available");
+        String url = Config.JOGADORES_URL+grupoAtualID;
+
         Button seguinte = (Button) findViewById(suecada.example.com.suecada.R.id.btnrSeguinte);
         buttonEffect(seguinte);
-        JogadoresList.clear();
-        getJogadoresList();
 
-
-
-
-       ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, JogadoresList);
-
-        AutoCompleteTextView j1 = (AutoCompleteTextView)
+        j1 = (AutoCompleteTextView)
                 findViewById(suecada.example.com.suecada.R.id.actvj1);
-        AutoCompleteTextView j2 = (AutoCompleteTextView)
+        j2 = (AutoCompleteTextView)
                 findViewById(suecada.example.com.suecada.R.id.actvj2);
-        AutoCompleteTextView j3 = (AutoCompleteTextView)
+        j3 = (AutoCompleteTextView)
                 findViewById(suecada.example.com.suecada.R.id.actvj3);
-        AutoCompleteTextView j4 = (AutoCompleteTextView)
+        j4 = (AutoCompleteTextView)
                 findViewById(suecada.example.com.suecada.R.id.actvj4);
-        AutoCompleteTextView j5 = (AutoCompleteTextView)
+        j5 = (AutoCompleteTextView)
                 findViewById(suecada.example.com.suecada.R.id.actvj5);
 
         j1.setDropDownBackgroundResource(suecada.example.com.suecada.R.color.primary_light);
@@ -68,37 +66,48 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
         j4.setDropDownBackgroundResource(suecada.example.com.suecada.R.color.primary_light);
         j5.setDropDownBackgroundResource(suecada.example.com.suecada.R.color.primary_light);
 
-        j1.setAdapter(adapter);
-        j2.setAdapter(adapter);
-        j3.setAdapter(adapter);
-        j4.setAdapter(adapter);
-        j5.setAdapter(adapter);
-
-        //TESTE LOG conteudo arraylist
-        StringBuilder sb = new StringBuilder();
-        for (String s : JogadoresList){
-            sb.append(s);
-        }
-        if(JogadoresList.size()==0)
-            Log.d("tagitaliana",sb.toString()+"vazio");
-        else
-            Log.d("tagitaliana",sb.toString() + "nao vazio");
-
+        preencherJogadoresList(url);
     }
 
-    private void getJogadoresList() {
+    /*private List<String> getJogadoresGrupo(String url) {
 
-        SharedPreferences sharedPreferences = ItaNomesRankedActivity.this.getSharedPreferences(
-                Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String grupoAtualID=sharedPreferences.getString(Config.GRUPOID_SHARED_PREF,"Not Available");
-        String url = Config.JOGADORES_URL+grupoAtualID;
-        //Toast.makeText(this, url,Toast.LENGTH_LONG).show();
+        return;
+    }*/
+
+    private void preencherJogadoresList(String url){
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //loading.dismiss();
-                showJSON(response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray result = jsonObject.getJSONArray(Config.JSON_ARRAY_JOGADORES);
+
+                    //preencher um JSON Object com os nomes dos jogadores do grupo atual
+                    //e adicionar os nomes à List listaJogadores
+                    for(int i=0; i<result.length(); i++) {
+
+                        JSONObject grupoData = result.getJSONObject(i);
+
+                        //nome += grupoData.getString(Config.KEY_NOME);
+                       listaJogadores.add(grupoData.getString(Config.KEY_NOME));
+
+                       //Associar List ao adapter
+                       adapter = new ArrayAdapter<String>(mContext,
+                                android.R.layout.simple_dropdown_item_1line, listaJogadores);
+
+                       //associar adapter às AutoCompleteTextViews
+                        j1.setAdapter(adapter);
+                        j2.setAdapter(adapter);
+                        j3.setAdapter(adapter);
+                        j4.setAdapter(adapter);
+                        j5.setAdapter(adapter);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         },
                 new Response.ErrorListener() {
@@ -107,65 +116,13 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
                         Toast.makeText(ItaNomesRankedActivity.this, error.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 });
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-
-    }
-
-    private void showJSON(String response){
-        String nome="";
-        int i;
-
-        try {
-            JSONObject jsonObject = new JSONObject(response);
-            JSONArray result = jsonObject.getJSONArray(Config.JSON_ARRAY_JOGADORES);
-            for(i=0; i<result.length(); i++) {
-
-                //APAGAR TESTE
-                int tamanho_inicial =0;
-                int tamanho_final=0;
-
-                JSONObject grupoData = result.getJSONObject(i);
-
-                nome += grupoData.getString(Config.KEY_NOME);
-                JogadoresList.add(grupoData.getString(Config.KEY_NOME));
-                tamanho_final= JogadoresList.size();
-
-                StringBuilder sb = new StringBuilder();
-                for (String s : JogadoresList){
-                    sb.append(s);
-                }
-                if (tamanho_final>tamanho_inicial) {
-                    tamanho_inicial += 1;
-                    Log.d("tagitaliana", "Posiçao " + i+1 + sb + "adicionado à Lista");
-                }
-                else{
-                    Log.d("tagitaliana", "O tamanho do array nao aumentou. Magia Negra");
-                }
-
-
-
-
-
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Toast.makeText(ItaNomesRankedActivity.this, "NOMES= " +nome,Toast.LENGTH_LONG).show();
 
     }
 
 
 
     public Intent guardaNomesRanked(View view) {
-
-        this.j1 = (AutoCompleteTextView) findViewById(suecada.example.com.suecada.R.id.actvj1);
-        this.j2 = (AutoCompleteTextView) findViewById(suecada.example.com.suecada.R.id.actvj2);
-        this.j3 = (AutoCompleteTextView) findViewById(suecada.example.com.suecada.R.id.actvj3);
-        this.j4 = (AutoCompleteTextView) findViewById(suecada.example.com.suecada.R.id.actvj4);
-        this.j5 = (AutoCompleteTextView) findViewById(suecada.example.com.suecada.R.id.actvj5);
-
 
         this.j1n = this.j1.getText().toString();
         this.j2n = this.j2.getText().toString();
@@ -180,8 +137,8 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
         } else if (this.j1n.equals(this.j2n) || this.j1n.equals(this.j3n) || this.j1n.equals(this.j4n) || this.j1n.equals(this.j5n) || this.j2n.equals(this.j3n) || this.j2n.equals(this.j4n) || this.j2n.equals(this.j5n) || this.j3n.equals(this.j4n) || this.j3n.equals(this.j5n) || this.j4n.equals(this.j5n)) {
             Toast.makeText(getApplicationContext(), "Nome de jogador repetido!", Toast.LENGTH_SHORT).show();
         }
-        else if(!JogadoresList.contains(this.j1n) || !JogadoresList.contains(this.j2n) || !JogadoresList.contains(this.j3n)
-                || !JogadoresList.contains(this.j4n)|| !JogadoresList.contains(this.j5n)){
+        else if(!listaJogadores.contains(this.j1n) || !listaJogadores.contains(this.j2n) || !listaJogadores.contains(this.j3n)
+                || !listaJogadores.contains(this.j4n)|| !listaJogadores.contains(this.j5n)){
             Toast.makeText(getApplicationContext(), "Jogador não existente!", Toast.LENGTH_SHORT).show();
         } else {
             i.putExtra("jogador1", this.j1n);
