@@ -37,7 +37,7 @@ public class MenuRankedActivity extends AppCompatActivity {
 
         //Inicializar sharedpreferences e obter o nome do grupo atual
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String grupo = sharedPreferences.getString(Config.GRUPO_SHARED_PREF, "Not Available");
+        String grupo = sharedPreferences.getString(Config.USER_SHARED_PREF, "Not Available");
 
         //Mostrar grupo atual
         String ligado_como = getResources().getString(suecada.example.com.suecada.R.string.ligado_grupo);
@@ -65,7 +65,7 @@ public class MenuRankedActivity extends AppCompatActivity {
                         editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, false);
 
                         //Putting blank value to email
-                        editor.putString(Config.GRUPO_SHARED_PREF, "");
+                        editor.putString(Config.USER_SHARED_PREF, "");
 
                         //Saving the sharedpreferences
                         editor.apply();
@@ -114,14 +114,6 @@ public class MenuRankedActivity extends AppCompatActivity {
     }
 
     public void ItalianaRanked(View v) {
-
-        //Configurar adaptador Bluetooth utilizado durante Sueca Italiana modo Ranked
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        //Caso o dispositivo não suporte bluetooth mostrar Toast com essa informação
-        if (mBluetoothAdapter == null) {
-            String btNaoSuportado="Este dispositivo não suporta a funcionalidade Bluetooth!";
-            Toast.makeText(MenuRankedActivity.this,btNaoSuportado,Toast.LENGTH_LONG).show();
-        }
 
         Intent myIntent = new Intent(MenuRankedActivity.this, ItaNomesRankedActivity.class);
 

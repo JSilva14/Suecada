@@ -44,7 +44,11 @@
 
     <!-- Strings related to login -->
     <string name="prompt_nomegrupo">Nome do Grupo</string>
+    <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_nome_proprio">Nome Próprio</string>
+    <string name="prompt_apelido">Apelido</string>
     <string name="action_login">Login</string>
     <string name="action_login_short">Login</string>
     <string name="error_grupo_invalido">This email address is invalid</string>

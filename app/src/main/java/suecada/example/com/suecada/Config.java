@@ -6,11 +6,13 @@ class Config {
     private static final String SERVER_URL = "http://35.178.49.133/suecada/";
 
     //URL to our login.php file
-    static final String LOGIN_URL = SERVER_URL + "/loginhash.php";
+    static final String LOGIN_URL = SERVER_URL + "/login.php";
 
-    //Keys for email and password as defined in our $_POST['key'] in login.php
-    static final String KEY_GRUPO = "grupo";
+    //Keys for username and password as defined in our $_POST['key'] in login.php
+    static final String KEY_USERNAME = "username";
     static final String KEY_PASSWORD = "password";
+
+    static final String KEY_GRUPO = "grupo";
 
     //If server response is equal to this that means login is successful
     static final String LOGIN_SUCCESS = "success";
@@ -19,8 +21,9 @@ class Config {
     //This would be the name of our shared preferences
     static final String SHARED_PREF_NAME = "suecadalogin";
 
-    //This would be used to store the email of current logged in user
-    static final String GRUPO_SHARED_PREF = "grupo";
+    //This would be used to store the username of current logged in user
+    static final String USER_SHARED_PREF = "username";
+    static final String USERID_SHARED_PREF ="userid";
 
     static final String GRUPOID_SHARED_PREF = "id";
 
@@ -28,7 +31,7 @@ class Config {
     //We will use this to store the boolean in sharedpreference to track user is loggedin or not
     static final String LOGGEDIN_SHARED_PREF = "loggedin";
 
-    static final String DATA_URL = SERVER_URL + "getIdGrupo.php?nome=";
+    static final String GRUPO_ATUAL_URL = SERVER_URL + "getIdGrupo.php?nome=";
     static final String KEY_ID = "id";
     static final String JSON_ARRAY = "result";
 

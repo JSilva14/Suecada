@@ -26,12 +26,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static suecada.example.com.suecada.Config.GRUPO_SHARED_PREF;
+import static suecada.example.com.suecada.Config.USER_SHARED_PREF;
 import static suecada.example.com.suecada.SuecaActivity.buttonEffect;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText etGrupo, etPassword;
+    private EditText etLoginUsername, etLoginPassword;
     private Button btnLogin;
     private ProgressBar loading;
 
@@ -43,10 +43,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(suecada.example.com.suecada.R.layout.activity_login);
 
-        etGrupo = (EditText) findViewById(suecada.example.com.suecada.R.id.eTNomeGrupo);
-        etPassword = (EditText) findViewById(suecada.example.com.suecada.R.id.eTPassword);
-        btnLogin = (Button) findViewById(suecada.example.com.suecada.R.id.btnLogin);
-        loading = (ProgressBar) findViewById(suecada.example.com.suecada.R.id.progressBar);
+        etLoginUsername = findViewById(suecada.example.com.suecada.R.id.eTUsername);
+        etLoginPassword = findViewById(suecada.example.com.suecada.R.id.eTPassword);
+        btnLogin = findViewById(suecada.example.com.suecada.R.id.btnLogin);
+        loading = findViewById(suecada.example.com.suecada.R.id.progressBar);
 
         btnLogin.setOnClickListener(loginClickListener);
         buttonEffect(btnLogin);
@@ -74,8 +74,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login() {
         //Getting values from edit texts
-        final String grupo = etGrupo.getText().toString().trim();
-        final String password = etPassword.getText().toString().trim();
+        final String username = etLoginUsername.getText().toString().trim();
+        final String password = etLoginPassword.getText().toString().trim();
 
 
         //Creating a string request
@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             //Adding values to editor
                             editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
-                            editor.putString(GRUPO_SHARED_PREF, grupo);
+                            editor.putString(USER_SHARED_PREF, username);
 
                             //Saving values to editor
                             editor.apply();
@@ -108,11 +108,12 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             //If the server response is not success
                             //Displaying an error message on toast
-                            Toast.makeText(LoginActivity.this, "Grupo ou Password Inválidos!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Username ou Password Inválidos!",
+                                    Toast.LENGTH_LONG).show();
                             btnLogin.setVisibility(View.VISIBLE);
                             loading.setVisibility(View.GONE);
-                            etGrupo.setText("");
-                            etPassword.setText("");
+                            etLoginUsername.setText("");
+                            etLoginPassword.setText("");
                         }
                     }
                 },
@@ -129,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 //Adding parameters to request
-                params.put(Config.KEY_GRUPO, grupo);
+                params.put(Config.KEY_USERNAME, username);
                 params.put(Config.KEY_PASSWORD, password);
 
                 //returning parameter
@@ -140,14 +141,14 @@ public class LoginActivity extends AppCompatActivity {
         //Adding the string request to the queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-        getIdGrupo();
+        //getIdGrupo();
 
     }
 
     private void getIdGrupo() {
 
 
-        String url = Config.DATA_URL+etGrupo.getText().toString().trim();
+        String url = Config.GRUPO_ATUAL_URL + etLoginUsername.getText().toString().trim();
 
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
@@ -194,18 +195,15 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this,"ID= "+ e,Toast.LENGTH_LONG).show();
 
         }
-
-
-
-          }
+    }
 
     private View.OnClickListener loginClickListener = new View.OnClickListener() {
         public void onClick(View v) {
 
-            final String grupo = etGrupo.getText().toString().trim();
-            final String password = etPassword.getText().toString().trim();
+            final String username = etLoginUsername.getText().toString().trim();
+            final String password = etLoginPassword.getText().toString().trim();
 
-            if (grupo.equals("") || password.equals("")) {
+            if (username.equals("") || password.equals("")) {
                 Toast.makeText(getApplicationContext(), "Preencha todos os campos", Toast.LENGTH_LONG).show();
                 return;
             }
@@ -217,22 +215,20 @@ public class LoginActivity extends AppCompatActivity {
 
 
             InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            mgr.hideSoftInputFromWindow(etPassword.getWindowToken(), 0);
+            mgr.hideSoftInputFromWindow(etLoginPassword.getWindowToken(), 0);
 
 
         }
-
-
     };
 
-    public void ContinuarOffline(View v) {
+    public void ContinuarOfflineIntent(View v) {
         Intent myIntent = new Intent(LoginActivity.this, MenuOfflineActivity.class);
         startActivity(myIntent);
         finish();
     }
 
-    public void CriarGrupo(View v) {
-        Intent myIntent = new Intent(LoginActivity.this, CriarGrupoActivity.class);
+    public void novoRegistoIntent(View v) {
+        Intent myIntent = new Intent(LoginActivity.this, RegistoActivity.class);
         startActivity(myIntent);
     }
 
