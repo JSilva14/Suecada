@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/nav_minha_conta"
+        android:icon="@mipmap/ic_pessoa"
+        android:title="@string/minha_conta"/>
+
+    <item android:id="@+id/nav_meus_grupos"
+        android:icon="@mipmap/ic_grupo"
+        android:title="@string/meus_grupos"/>
+
+    <item android:id="@+id/nav_info"
+        android:icon="@mipmap/ic_info"
+        android:title="@string/info"/>
+
+    <item android:id="@+id/nav_terminar_sessao"
+        android:icon="@mipmap/ic_logout"
+        android:title="@string/terminar_sessao"/>
+
+    <item android:id="@+id/nav_sair"
+        android:icon="@mipmap/ic_sair"
+        android:title="@string/sair"/>
+
+</menu>

@@ -1,51 +1,109 @@
 package suecada.example.com.suecada;
 
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
-import static suecada.example.com.suecada.R.layout.activity_menu_ranked;
 
 public class MenuRankedActivity extends AppCompatActivity {
 
     EventBus myEventBus = EventBus.getDefault();
-    TextView tvGrupoAtual;
-    Button btnLogout;
+    Toolbar rankedToolbar;
+    DrawerLayout mDrawerLayout;
+    ActionBarDrawerToggle mToggle;
+    NavigationView navViewMenuRanked;
+    MenuItem mItemMinhaConta, mItemMeusGrupos, mItemTerminarSessao,
+            mItemInfo, mItemSair;
 
+    private Context mContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(activity_menu_ranked);
+        setContentView(R.layout.activity_menu_ranked);
+
+        mDrawerLayout = findViewById(R.id.drawerLayout);
+        rankedToolbar = findViewById(R.id.menuRankedToolbar);
+        setSupportActionBar(rankedToolbar);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, rankedToolbar, R.string.abrir,
+                R.string.fechar);
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+
+        navViewMenuRanked = findViewById(R.id.navViewMenuRanked);
+        mItemMinhaConta = findViewById(R.id.nav_minha_conta);
+        mItemMeusGrupos = findViewById(R.id.nav_meus_grupos);
+        mItemInfo = findViewById(R.id.nav_info);
+        mItemTerminarSessao = findViewById(R.id.nav_terminar_sessao);
+        mItemSair = findViewById(R.id.nav_sair);
 
 
-        //Associar views
-        tvGrupoAtual = (TextView) findViewById(suecada.example.com.suecada.R.id.btnGrupoAtual);
-        btnLogout = (Button) findViewById(suecada.example.com.suecada.R.id.btnLogout);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-        //Inicializar sharedpreferences e obter o nome do grupo atual
+        navViewMenuRanked.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_minha_conta:
+                        //fazer algo
+                        return true;
+
+                    case R.id.nav_meus_grupos:
+                        GerirGrupo();
+                        return true;
+
+                    case R.id.nav_info:
+                        //info
+                        return true;
+
+                    case R.id.nav_terminar_sessao:
+                        logout();
+                        return true;
+
+                    case R.id.nav_sair:
+                        doExit();
+                        return true;
+
+                    default:
+                        // If we got here, the user's action was not recognized.
+                        // Invoke the superclass to handle it.
+                        return MenuRankedActivity.super.onNavigateUp();
+                }
+            }
+        });
+
+        //Inicializar sharedpreferences e obter o username do jogador atual
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String grupo = sharedPreferences.getString(Config.USER_SHARED_PREF, "Not Available");
+        String jogador = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
 
-        //Mostrar grupo atual
-        String ligado_como = getResources().getString(suecada.example.com.suecada.R.string.ligado_grupo);
-        String login_info = ligado_como + grupo;
-        tvGrupoAtual.setText(login_info);
 
-        btnLogout.setOnClickListener(logoutClickListener);
     }
+
+    //Não mostrar menu de overflow na toolbar
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return false;
+    }
+
+
+
 
     private void logout() {
         //Creating an alert dialog to confirm logout
@@ -63,9 +121,8 @@ public class MenuRankedActivity extends AppCompatActivity {
 
                         //Puting the value false for loggedin
                         editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, false);
-
-                        //Putting blank value to email
-                        editor.putString(Config.USER_SHARED_PREF, "");
+                        //Putting blank value to username
+                        editor.putString(Config.USERNAME_SHARED_PREF, "");
 
                         //Saving the sharedpreferences
                         editor.apply();
@@ -90,13 +147,13 @@ public class MenuRankedActivity extends AppCompatActivity {
 
     }
 
-    private View.OnClickListener logoutClickListener = new View.OnClickListener() {
+   // private MenuItem.OnMenuItemClickListener logoutClickListener = new MenuItem.OnMenuItemClickListener() {
 
-        public void onClick(View v) {
-            logout();
-        }
+        //public void onMenuItemClick(MenuItem m) {
+          //  logout();
+       // }
 
-    };
+   // };
 
     public void SuecaOffline(View v) {
 
@@ -120,17 +177,36 @@ public class MenuRankedActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
-    public void GerirGrupo(View v) {
+    public void GerirGrupo() {
 
         Intent myIntent = new Intent(MenuRankedActivity.this, GerirGrupoActivity.class);
 
         startActivity(myIntent);
     }
 
+    private void doExit() {
+
+        android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(
+                mContext);
+
+        alertDialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        alertDialog.setNegativeButton("Não", null);
+
+        alertDialog.setMessage("Tem a certeza que deseja sair?");
+        alertDialog.setTitle("Suecada");
+        alertDialog.show();
+    }
+
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+        doExit();
     }
 
     @Override

@@ -2,6 +2,7 @@
     <string name="app_name">Suecada</string>
     <string name="sueca">Sueca</string>
     <string name="suecaItaliana">Sueca Italiana</string>
+    <string name="suecaItalianaCompetitivo">Sueca Italiana Ranked</string>
     <string name="Online">Online:</string>
     <string name="consultarRanking">Consultar Ranking</string>
     <string name="Offline">Offline:</string>
@@ -37,10 +38,13 @@
     <string name="terminar">Terminar</string>
     <string name="gerir_grupo">Gerir Grupo</string>
     <string name="jogadores_grupo">Jogadores no Grupo</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_login">Login</string>
+    <string name="minha_conta">Minha Conta</string>
+    <string name="meus_grupos">Meus Grupos</string>
+    <string name="info">Informação</string>
+    <string name="abrir">abrir</string>
+    <string name="fechar">fechar</string>
+
 
     <!-- Strings related to login -->
     <string name="prompt_nomegrupo">Nome do Grupo</string>

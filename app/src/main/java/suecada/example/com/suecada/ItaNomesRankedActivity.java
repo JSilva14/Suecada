@@ -43,7 +43,7 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = ItaNomesRankedActivity.this.getSharedPreferences(
                 Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String grupoAtualID=sharedPreferences.getString(Config.GRUPOID_SHARED_PREF,"Not Available");
+        String grupoAtualID=sharedPreferences.getString(Config.JOGADORID_SHARED_PREF,"Not Available");
         String url = Config.JOGADORES_URL+grupoAtualID;
 
         Button seguinte = (Button) findViewById(suecada.example.com.suecada.R.id.btnrSeguinte);

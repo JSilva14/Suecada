@@ -15,7 +15,7 @@ public class Splash extends Activity {
         super.onCreate(icicle);
         setContentView(suecada.example.com.suecada.R.layout.activity_splash);
         final ActivityOptions options;
-        View logo = findViewById(suecada.example.com.suecada.R.id.splashscreen);
+        View logo = findViewById(suecada.example.com.suecada.R.id.splashLogo);
         options = ActivityOptions
                 .makeSceneTransitionAnimation(this, logo, "logo");
 

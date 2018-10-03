@@ -1,6 +1,8 @@
 package suecada.example.com.suecada;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,7 +28,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static suecada.example.com.suecada.Config.USER_SHARED_PREF;
 import static suecada.example.com.suecada.SuecaActivity.buttonEffect;
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
     boolean loggedIn = false;
 
+    private Context mContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,51 +66,58 @@ public class LoginActivity extends AppCompatActivity {
         //Fetching the boolean value form sharedpreferences
         loggedIn = sharedPreferences.getBoolean(Config.LOGGEDIN_SHARED_PREF, false);
 
-        //If we will get true
+        //If we get true
         if (loggedIn) {
             //We will start the Profile Activity
-            Intent intent = new Intent(LoginActivity.this, MenuRankedActivity.class);
+            Intent intent = new Intent(mContext, MenuRankedActivity.class);
             startActivity(intent);
         }
     }
 
     private void login() {
-        //Getting values from edit texts
+        //Obter username e password inseridos pelo user
         final String username = etLoginUsername.getText().toString().trim();
         final String password = etLoginPassword.getText().toString().trim();
 
 
-        //Creating a string request
+        //Criar a string request
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.LOGIN_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //If we are getting success from server
+                        //Caso a resposta do servidor seja "success"
                         if (response.equalsIgnoreCase(Config.LOGIN_SUCCESS)) {
 
-                            //Creating a shared preference
-                            SharedPreferences sharedPreferences = LoginActivity.this.getSharedPreferences(
+                            //Instanciar sharedPreferences
+                            SharedPreferences sharedPreferences = mContext.getSharedPreferences(
                                     Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
-                            //Creating editor to store values to shared preferences
+                            //Criar editor para editar valores nas shared preferences
                             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                            //Adding values to editor
+                            //Adicionar valores ao editor
+                            //Indicar que o user está logado
                             editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
-                            editor.putString(USER_SHARED_PREF, username);
+                            //Editar flag do user atual para o username do user logado
+                            editor.putString(Config.USERNAME_SHARED_PREF, username);
+                            //editor.putInt(USERID_SHARED_PREF, id);
 
-                            //Saving values to editor
+                            //Aplicar alterações
                             editor.apply();
 
-                            //Starting profile activity
-                            Intent intent = new Intent(LoginActivity.this, MenuRankedActivity.class);
+                            //verificar qual o id do jogador na BD
+                            getIdJogador();
+
+                            //Iniciar acivity Menu
+                            Intent intent = new Intent(mContext, MenuRankedActivity.class);
                             startActivity(intent);
+                            //Terminar activity atual
                             finish();
 
                         } else {
-                            //If the server response is not success
-                            //Displaying an error message on toast
-                            Toast.makeText(LoginActivity.this, "Username ou Password Inválidos!",
+                            //Caso a resposta do servidor não seja successo
+                            //Mostrar "Toast" com mensagem de erro
+                            Toast.makeText(mContext, "Username ou Password Inválidos!",
                                     Toast.LENGTH_LONG).show();
                             btnLogin.setVisibility(View.VISIBLE);
                             loading.setVisibility(View.GONE);
@@ -120,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(LoginActivity.this, "Não foi possivel estabelecer ligação ao servidor",
+                        Toast.makeText(mContext, "Não foi possivel estabelecer ligação ao servidor",
                                 Toast.LENGTH_LONG).show();
                         btnLogin.setVisibility(View.VISIBLE);
                         loading.setVisibility(View.GONE);
@@ -133,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                 params.put(Config.KEY_USERNAME, username);
                 params.put(Config.KEY_PASSWORD, password);
 
+
                 //returning parameter
                 return params;
             }
@@ -141,60 +151,81 @@ public class LoginActivity extends AppCompatActivity {
         //Adding the string request to the queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-        //getIdGrupo();
 
     }
 
-    private void getIdGrupo() {
+    private void getIdJogador() {
 
+        //Obter username e password inseridos pelo user
+        final String username = etLoginUsername.getText().toString().trim();
+        //final String password = etLoginPassword.getText().toString().trim();
 
-        String url = Config.GRUPO_ATUAL_URL + etLoginUsername.getText().toString().trim();
+        //usado para get
+        //String url = Config.JOGADOR_ATUAL_URL + etLoginUsername.getText().toString().trim();
 
-        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Config.JOGADOR_ATUAL_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //loading.dismiss();
-                showJSON(response);
+                String jogadorAtualID;
+                try {
+                    //JSONObject que recebe json enviado via echo com id do jogador
+                    JSONObject jsonObject = new JSONObject(response);
+                    //obter o array "result" do JSONObject recebido
+                    JSONArray result = jsonObject.getJSONArray(Config.JSON_ARRAY);
+                    //novo JSON Object para receber o id do jogador presente no index 0 do array
+                    JSONObject jogadorData = result.getJSONObject(0);
+                    //transformar o id numa string
+                    String id = jogadorData.getString(Config.KEY_ID);
+
+                    //Instanciar Shared Preferences
+                    SharedPreferences sharedPreferences = mContext.getSharedPreferences(
+                            Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+                    //Criar editor para as shared references
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                    //Colocar o id recebido na flag JOGADORID das shared preferences
+                    //desta forma o id do jogador fica guardado "globalmente" caso seja necessário
+                    //utilizá-lo em queries futuras (p. ex: em outra activity)
+                    editor.putString(Config.JOGADORID_SHARED_PREF, id);
+                    editor.apply();
+
+                    //TODO -- eliminar este teste
+                    //Consultar o valor da flag "JOGADORID" nas shared preferences
+                    //para saber qual o id do jogador logado.
+                    //colocar valor numa string para mostrar no ecrã se necessário
+                    jogadorAtualID=sharedPreferences.getString(Config.JOGADORID_SHARED_PREF,"Not Available");
+
+                    Toast.makeText(mContext,"ID= "+ jogadorAtualID,Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(mContext,"Erro: "+ e,Toast.LENGTH_LONG).show();
+
+                }
             }
         },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(LoginActivity.this, error.getMessage(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, error.getMessage(),Toast.LENGTH_LONG).show();
                     }
-                });
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                //Adding parameters to request
+                params.put(Config.KEY_USERNAME, username);
+                //params.put(Config.KEY_PASSWORD, password);
 
+                //returning parameter
+                return params;
+            }
+            };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-
-    }
-
-    private void showJSON(String response){
-        String grupoAtualID;
-        try {
-            JSONObject jsonObject = new JSONObject(response);
-            JSONArray result = jsonObject.getJSONArray(Config.JSON_ARRAY);
-            JSONObject grupoData = result.getJSONObject(0);
-            String id = grupoData.getString(Config.KEY_ID);
-
-            //Creating a shared preference
-            SharedPreferences sharedPreferences = LoginActivity.this.getSharedPreferences(
-                    Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-
-            //Creating editor to store values to shared preferences
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-            editor.putString(Config.GRUPOID_SHARED_PREF, id);
-            editor.apply();
-
-            grupoAtualID=sharedPreferences.getString(Config.GRUPOID_SHARED_PREF,"Not Available");
-
-            Toast.makeText(this,"ID= "+ grupoAtualID,Toast.LENGTH_LONG).show();
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(this,"ID= "+ e,Toast.LENGTH_LONG).show();
-
-        }
     }
 
     private View.OnClickListener loginClickListener = new View.OnClickListener() {
@@ -222,19 +253,38 @@ public class LoginActivity extends AppCompatActivity {
     };
 
     public void ContinuarOfflineIntent(View v) {
-        Intent myIntent = new Intent(LoginActivity.this, MenuOfflineActivity.class);
+        Intent myIntent = new Intent(mContext, MenuOfflineActivity.class);
         startActivity(myIntent);
         finish();
     }
 
     public void novoRegistoIntent(View v) {
-        Intent myIntent = new Intent(LoginActivity.this, RegistoActivity.class);
+        Intent myIntent = new Intent(mContext, RegistoActivity.class);
         startActivity(myIntent);
+    }
+
+    private void doExit() {
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+                mContext);
+
+        alertDialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        alertDialog.setNegativeButton("Não", null);
+
+        alertDialog.setMessage("Tem a certeza que deseja sair?");
+        alertDialog.setTitle("Suecada");
+        alertDialog.show();
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+        doExit();
     }
 }

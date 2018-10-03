@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:background="@color/primary_light">
 
-    <ImageView android:id="@+id/splashscreen" android:layout_width="wrap_content"
+    <ImageView android:id="@+id/splashLogo" android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:transitionName="logo"
         android:src="@drawable/splash"

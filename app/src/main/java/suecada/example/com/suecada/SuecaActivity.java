@@ -27,19 +27,19 @@ public class SuecaActivity extends Activity {
     private NumberPicker npVos;
     private TableLayout pontuacao;
     private TextView tvNos, tvVos;
-    private Button reiniciar, registar, anular;
+    Button reiniciar, registar, anular;
 
     public void setUp() {
 
-        registar = (Button) findViewById(suecada.example.com.suecada.R.id.btnRegistar);
-        reiniciar = (Button) findViewById(suecada.example.com.suecada.R.id.btnReiniciar);
-        anular = (Button) findViewById(suecada.example.com.suecada.R.id.btnAnular);
+        registar = findViewById(suecada.example.com.suecada.R.id.btnRegistar);
+        reiniciar = findViewById(suecada.example.com.suecada.R.id.btnReiniciar);
+        anular = findViewById(suecada.example.com.suecada.R.id.btnAnular);
         buttonEffect(reiniciar);
         buttonEffect(registar);
         buttonEffect(anular);
-        npNos = (NumberPicker) findViewById(suecada.example.com.suecada.R.id.nPNos);
-        npVos = (NumberPicker) findViewById(suecada.example.com.suecada.R.id.nPVos);
-        pontuacao = (TableLayout) findViewById(suecada.example.com.suecada.R.id.tLPontos);
+        npNos = findViewById(suecada.example.com.suecada.R.id.nPNos);
+        npVos = findViewById(suecada.example.com.suecada.R.id.nPVos);
+        pontuacao = findViewById(suecada.example.com.suecada.R.id.tLPontos);
         String valores[] = {"0", "1", "2", "4"};
 
         npNos.setMaxValue(3);
