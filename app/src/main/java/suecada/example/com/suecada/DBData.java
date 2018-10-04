@@ -1,6 +1,7 @@
 package suecada.example.com.suecada;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -10,48 +11,48 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.Map;
 
 //classe para facilitar pedidos volley à API
-public class DBData {
+public class DBData implements VolleyCallback{
 
     //Context da activity DBData onde é instanciado
     private Context activityContext;
     private String requestURL;
-    private Map<String, String> parametrosRequest = new HashMap<>();
-    private JSONArray result;
+    private Map<String, String> parametrosRequest;
+    private String data;
 
+    //construtor
+    public DBData(Context activityContext, String requestURL, Map<String, String> parametrosRequest)
+    {
+        this.activityContext = activityContext;
+        this.requestURL = requestURL;
+        this.parametrosRequest = parametrosRequest;
 
-     private StringRequest stringRequest = new StringRequest(Request.Method.POST,
+    }
+
+//a única forma de captar a resposta obtida no método onResponse abaixo é utilizando um callback
+public void fetchResponse(final VolleyCallback volleycallback) {
+     StringRequest stringRequest = new StringRequest(Request.Method.POST,
             requestURL, new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
 
             try {
-                //JSONObject que recebe resposta da API
-                JSONObject jsonObject = new JSONObject(response);
-                //obter o array "result" do JSONObject recebido acima
-                result = jsonObject.getJSONArray(Config.JSON_ARRAY);
-
-
-            } catch (JSONException e) {
+                volleycallback.onSuccessResponse(response);
+            } catch (Exception e) {
                 e.printStackTrace();
-
             }
         }
     },
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(activityContext, error.getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(activityContext, error.getMessage(), Toast.LENGTH_LONG).show();
                 }
-            })
-    {
+            }) {
         @Override
         protected Map<String, String> getParams() {
 
@@ -59,10 +60,22 @@ public class DBData {
             return parametrosRequest;
         }
     };
-
-    private JSONArray requestData() {
-        RequestQueue requestQueue = Volley.newRequestQueue(activityContext);
-        requestQueue.add(stringRequest);
-        return result;
-    }
+     //adicionar request à queue
+    RequestQueue requestQueue = Volley.newRequestQueue(activityContext);
+    requestQueue.add(stringRequest);
 }
+
+    //utilizar a resposta obtida em fetchResponse
+
+        @Override
+            public String onSuccessResponse(String result) {
+                    String data=result;
+                    return data;
+            }
+
+
+
+
+}
+
+

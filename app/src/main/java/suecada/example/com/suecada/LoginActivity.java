@@ -30,7 +30,7 @@ import java.util.Map;
 
 import static suecada.example.com.suecada.SuecaActivity.buttonEffect;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity{
 
     private EditText etLoginUsername, etLoginPassword;
     private Button btnLogin;
@@ -79,78 +79,53 @@ public class LoginActivity extends AppCompatActivity {
         final String username = etLoginUsername.getText().toString().trim();
         final String password = etLoginPassword.getText().toString().trim();
 
+        //Criar Hashmap com os parametros que queremos colocar no pedido à BD
+        Map<String, String> parametros = new HashMap<>();
+        parametros.put(Config.KEY_USERNAME, username);
+        parametros.put(Config.KEY_PASSWORD, password);
 
-        //Criar a string request
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.LOGIN_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //Caso a resposta do servidor seja "success"
-                        if (response.equalsIgnoreCase(Config.LOGIN_SUCCESS)) {
+        //Instanciar DBData para efetuar um request à API
+        DBData dbData = new DBData(mContext, Config.LOGIN_URL, parametros);
+        String resposta = dbData.getServerResponse();
 
-                            //Instanciar sharedPreferences
-                            SharedPreferences sharedPreferences = mContext.getSharedPreferences(
-                                    Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        if (resposta.equalsIgnoreCase(Config.LOGIN_SUCCESS)) {
 
-                            //Criar editor para editar valores nas shared preferences
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
+            //Instanciar sharedPreferences
+            SharedPreferences sharedPreferences = mContext.getSharedPreferences(
+                    Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
-                            //Adicionar valores ao editor
-                            //Indicar que o user está logado
-                            editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
-                            //Editar flag do user atual para o username do user logado
-                            editor.putString(Config.USERNAME_SHARED_PREF, username);
-                            //editor.putInt(USERID_SHARED_PREF, id);
+            //Criar editor para editar valores nas shared preferences
+            SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                            //Aplicar alterações
-                            editor.apply();
+            //Adicionar valores ao editor
+            //Indicar que o user está logado
+            editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
+            //Editar flag do user atual para o username do user logado
+            editor.putString(Config.USERNAME_SHARED_PREF, username);
+            //editor.putInt(USERID_SHARED_PREF, id);
 
-                            //verificar qual o id do jogador na BD
-                            getIdJogador();
+            //Aplicar alterações
+            editor.apply();
 
-                            //Iniciar acivity Menu
-                            Intent intent = new Intent(mContext, MenuRankedActivity.class);
-                            startActivity(intent);
-                            //Terminar activity atual
-                            finish();
+            //verificar qual o id do jogador na BD
+            getIdJogador();
 
-                        } else {
-                            //Caso a resposta do servidor não seja successo
-                            //Mostrar "Toast" com mensagem de erro
-                            Toast.makeText(mContext, "Username ou Password Inválidos!",
-                                    Toast.LENGTH_LONG).show();
-                            btnLogin.setVisibility(View.VISIBLE);
-                            loading.setVisibility(View.GONE);
-                            etLoginUsername.setText("");
-                            etLoginPassword.setText("");
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(mContext, "Não foi possivel estabelecer ligação ao servidor",
-                                Toast.LENGTH_LONG).show();
-                        btnLogin.setVisibility(View.VISIBLE);
-                        loading.setVisibility(View.GONE);
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                //Adding parameters to request
-                params.put(Config.KEY_USERNAME, username);
-                params.put(Config.KEY_PASSWORD, password);
+            //Iniciar acivity Menu
+            Intent intent = new Intent(mContext, MenuRankedActivity.class);
+            startActivity(intent);
+            //Terminar activity atual
+            finish();
 
-
-                //returning parameter
-                return params;
-            }
-        };
-
-        //Adding the string request to the queue
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        } else {
+            //Caso a resposta do servidor não seja successo
+            //Mostrar "Toast" com mensagem de erro
+            Toast.makeText(mContext, "Username ou Password Inválidos!",
+                    Toast.LENGTH_LONG).show();
+            btnLogin.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
+            etLoginUsername.setText("");
+            etLoginPassword.setText("");
+        }
 
     }
 
