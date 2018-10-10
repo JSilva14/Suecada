@@ -24,12 +24,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GerirGrupoActivity extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
+public class GerirGrupoActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener {
 
     private RecyclerView rvListaJogadores;
     private Button btnAdicionarJogador;
     private Button btnEliminarJogador;
-    private MyRecyclerViewAdapter rvAdapter;
+    private RecyclerViewAdapter rvAdapter;
     private Context mContext=this;
 
     List<String> JOGADORES = new ArrayList<>();
@@ -83,13 +83,13 @@ public class GerirGrupoActivity extends AppCompatActivity implements MyRecyclerV
 
         try {
             JSONObject jsonObject = new JSONObject(response);
-            JSONArray result = jsonObject.getJSONArray(Config.JSON_ARRAY_JOGADORES);
+            JSONArray result = jsonObject.getJSONArray("resultJogadores");
             for(i=0; i<result.length(); i++) {
                 JSONObject grupoData = result.getJSONObject(i);
 
-                JOGADORES.add(grupoData.getString(Config.KEY_NOME));
+                JOGADORES.add(grupoData.getString("nome"));
 
-                rvAdapter = new MyRecyclerViewAdapter(this, JOGADORES);
+                rvAdapter = new RecyclerViewAdapter(this, JOGADORES, R.id.jogadorRow);
                 rvAdapter.setClickListener(this);
                 rvListaJogadores.setAdapter(rvAdapter);
             }

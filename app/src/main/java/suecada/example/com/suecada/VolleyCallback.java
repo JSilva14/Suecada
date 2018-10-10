@@ -1,6 +1,9 @@
 package suecada.example.com.suecada;
 
+import com.android.volley.VolleyError;
+
 //Interface para captar dados obtidos no método onResponse do StringRequest
 public interface VolleyCallback {
-    String onSuccessResponse(String result);
+    void onSuccessResponse(String result);
+    void onErrorResponse(VolleyError error);
 }

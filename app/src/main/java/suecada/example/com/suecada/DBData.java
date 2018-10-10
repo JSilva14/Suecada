@@ -11,69 +11,59 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Map;
 
 //classe para facilitar pedidos volley à API
-public class DBData implements VolleyCallback{
-
-    //Context da activity DBData onde é instanciado
-    private Context activityContext;
-    private String requestURL;
-    private Map<String, String> parametrosRequest;
-    private String data;
+public class DBData implements VolleyCallback {
 
     //construtor
-    public DBData(Context activityContext, String requestURL, Map<String, String> parametrosRequest)
-    {
-        this.activityContext = activityContext;
-        this.requestURL = requestURL;
-        this.parametrosRequest = parametrosRequest;
+    public DBData() {
+    }
+
+    //a única forma de captar a resposta obtida no método onResponse abaixo é utilizando um callback
+    //que executa quando é recebida uma resposta do servidor
+    public void fetchResponse(final Context activityContext, final String requestURL,
+                              final Map<String, String> parametrosRequest, final VolleyCallback callback) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                requestURL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                    callback.onSuccessResponse(response);
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onErrorResponse(error);
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+
+                //parametros da request à API
+                return parametrosRequest;
+            }
+        };
+        //adicionar request à queue
+        RequestQueue requestQueue = Volley.newRequestQueue(activityContext);
+        requestQueue.add(stringRequest);
 
     }
 
-//a única forma de captar a resposta obtida no método onResponse abaixo é utilizando um callback
-public void fetchResponse(final VolleyCallback volleycallback) {
-     StringRequest stringRequest = new StringRequest(Request.Method.POST,
-            requestURL, new Response.Listener<String>() {
-        @Override
-        public void onResponse(String response) {
+    @Override
+    public void onSuccessResponse(String result) {
 
-            try {
-                volleycallback.onSuccessResponse(response);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(activityContext, error.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }) {
-        @Override
-        protected Map<String, String> getParams() {
+    }
 
-            //parametros da request à API
-            return parametrosRequest;
-        }
-    };
-     //adicionar request à queue
-    RequestQueue requestQueue = Volley.newRequestQueue(activityContext);
-    requestQueue.add(stringRequest);
-}
+    @Override
+    public void onErrorResponse(VolleyError error) {
 
-    //utilizar a resposta obtida em fetchResponse
-
-        @Override
-            public String onSuccessResponse(String result) {
-                    String data=result;
-                    return data;
-            }
-
-
+    }
 
 
 }

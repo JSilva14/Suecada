@@ -83,7 +83,7 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    JSONArray result = jsonObject.getJSONArray(Config.JSON_ARRAY_JOGADORES);
+                    JSONArray result = jsonObject.getJSONArray("resultJogadores");
 
                     //preencher um JSON Object com os nomes dos jogadores do grupo atual
                     //e adicionar os nomes à List listaJogadores
@@ -92,7 +92,7 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
                         JSONObject grupoData = result.getJSONObject(i);
 
                         //nome += grupoData.getString(Config.KEY_NOME);
-                       listaJogadores.add(grupoData.getString(Config.KEY_NOME));
+                       listaJogadores.add(grupoData.getString("nome"));
 
                        //Associar List ao adapter
                        adapter = new ArrayAdapter<String>(mContext,

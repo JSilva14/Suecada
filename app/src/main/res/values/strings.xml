@@ -39,12 +39,13 @@
     <string name="gerir_grupo">Gerir Grupo</string>
     <string name="jogadores_grupo">Jogadores no Grupo</string>
     <string name="title_activity_login">Login</string>
-    <string name="minha_conta">Minha Conta</string>
-    <string name="meus_grupos">Meus Grupos</string>
+    <string name="minha_conta">A Minha Conta</string>
+    <string name="meus_grupos">Os Meus Grupos</string>
     <string name="info">Informação</string>
     <string name="abrir">abrir</string>
     <string name="fechar">fechar</string>
-
+    <string name="admin">Administrador</string>
+    <string name="entrar">Entrar</string>
 
     <!-- Strings related to login -->
     <string name="prompt_nomegrupo">Nome do Grupo</string>

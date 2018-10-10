@@ -28,57 +28,52 @@
 
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/menuRankedConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/btnSuecaOfflineMR"
-                android:layout_width="182dp"
+
+            <TextView
+                android:id="@+id/tvMeusGrupos"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="164dp"
-                android:layout_marginEnd="8dp"
-                android:background="@color/icons"
-                android:elevation="4dp"
-                android:onClick="SuecaOffline"
-                android:text="@string/sueca"
-                android:textColor="@color/primary_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="36dp"
+                android:text="@string/meus_grupos"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="182dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="56dp"
-                android:layout_marginEnd="8dp"
-                android:background="@color/icons"
-                android:elevation="4dp"
-                android:onClick="ItalianaOffline"
-                android:text="@string/suecaItaliana"
-                android:textColor="@color/primary_text"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvListaGrupos"
+                android:layout_width="338dp"
+                android:layout_height="288dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.444"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnSuecaOfflineMR" />
+                app:layout_constraintTop_toBottomOf="@id/tvMeusGrupos" />
 
             <Button
-                android:id="@+id/button4"
-                android:layout_width="182dp"
+                android:id="@+id/btnCriarGrupo"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="8dp"
-                android:background="@color/icons"
-                android:elevation="4dp"
-                android:onClick="ItalianaRanked"
-                android:text="@string/suecaItalianaCompetitivo"
-                android:textColor="@color/primary_text"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/criar_grupo"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button3" />
+                app:layout_constraintTop_toBottomOf="@+id/rvListaGrupos" />
+
+            <Button
+                android:id="@+id/btnEntrarGrupo"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="30dp"
+                android:text="Button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvListaGrupos" />
         </android.support.constraint.ConstraintLayout>
 
         <android.support.design.widget.NavigationView

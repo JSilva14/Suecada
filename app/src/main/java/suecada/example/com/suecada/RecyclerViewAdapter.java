@@ -10,16 +10,19 @@ import android.widget.TextView;
 import java.util.List;
 
 //Adapter para preencher Recycler View
-public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     private List<String> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    //passar por parametro qual o layout que queremos inserir na recyclerview
+    private int listRowToInflate;
 
     // passar dados para o construtor
-    MyRecyclerViewAdapter(Context context, List<String> data) {
+    RecyclerViewAdapter(Context context, List<String> data, int listRowToInflate) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        this.listRowToInflate=listRowToInflate;
     }
 
     // mostra a linha jogador_row (inflate) apenas quando necessário
@@ -49,7 +52,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.tvJogadorNome);
+            myTextView = itemView.findViewById(listRowToInflate);
             itemView.setOnClickListener(this);
         }
 

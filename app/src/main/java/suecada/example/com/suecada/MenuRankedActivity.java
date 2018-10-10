@@ -12,12 +12,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.android.volley.VolleyError;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MenuRankedActivity extends AppCompatActivity {
@@ -29,13 +42,20 @@ public class MenuRankedActivity extends AppCompatActivity {
     NavigationView navViewMenuRanked;
     MenuItem mItemMinhaConta, mItemMeusGrupos, mItemTerminarSessao,
             mItemInfo, mItemSair;
+    RecyclerView rvListaGrupos;
+    Button btnEntrarGrupo, btnCriarGrupo;
+    RecyclerViewAdapter rvAdapter;
 
     private Context mContext = this;
+
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_ranked);
+
+        sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME,Context.MODE_PRIVATE);
 
         mDrawerLayout = findViewById(R.id.drawerLayout);
         rankedToolbar = findViewById(R.id.menuRankedToolbar);
@@ -91,8 +111,13 @@ public class MenuRankedActivity extends AppCompatActivity {
 
         //Inicializar sharedpreferences e obter o username do jogador atual
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String jogador = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
+        String jogador = sharedPreferences.getString(Config.JOGADORUSERNAME_SHARED_PREF, "Not Available");
 
+        rvListaGrupos = findViewById(R.id.rvListaGrupos);
+        rvListaGrupos.setItemAnimator(new DefaultItemAnimator());
+        rvListaGrupos.setLayoutManager(new LinearLayoutManager(this));
+
+        getGrupos();
 
     }
 
@@ -103,7 +128,66 @@ public class MenuRankedActivity extends AppCompatActivity {
     }
 
 
+    private void getGrupos() {
 
+        //Criar Hashmap com os parametros que queremos colocar no pedido à BD
+        Map<String, String> parametros = new HashMap<>();
+        parametros.put("idJogador", sharedPreferences.getString(Config.JOGADORID_SHARED_PREF,
+                Config.JOGADORID_SHARED_PREF));
+
+        //Instanciar DBData para efetuar um request à API
+        DBData dbData = new DBData();
+
+        dbData.fetchResponse(mContext, Config.GRUPOS_URL,
+                parametros, new VolleyCallback() {
+                    @Override
+                    public void onSuccessResponse(String resposta) {
+
+                        Log.d("GRUPOS","GRUPOS: " );
+                        Log.d("GRUPOS", resposta);
+
+                        try {
+                            //obter o array "result" na respostaJSON
+                            JSONObject result = new JSONObject(resposta);
+
+
+                            String sucesso = result.getString("sucesso");
+                            String mensagemResposta = result.getString("mensagem");
+
+                            switch (sucesso) {
+
+                                case "1":
+
+                                    String nomeGrupo = result.getString("nomeGrupo");
+                                    String flgAdmin = result.getString("flgAdmin");
+                                    String numJogadores = result.getString("numjogadores");
+
+                                    break;
+
+                                case "0":
+                                    //Caso a resposta do servidor não seja successo
+                                    //Mostrar "Toast" com mensagem de erro
+                                    Toast.makeText(mContext, mensagemResposta,
+                                            Toast.LENGTH_LONG).show();
+                                    //
+                                    break;
+
+
+                                default:
+                                    break;
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(mContext, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
 
     private void logout() {
         //Creating an alert dialog to confirm logout
@@ -120,9 +204,14 @@ public class MenuRankedActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = preferences.edit();
 
                         //Puting the value false for loggedin
-                        editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, false);
+                        /*editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, false);
                         //Putting blank value to username
-                        editor.putString(Config.USERNAME_SHARED_PREF, "");
+                        editor.putString(Config.JOGADORUSERNAME_SHARED_PREF, "");
+                        editor.putString(Config.JOGADORID_SHARED_PREF, "");
+                        editor.putString(Config.JOGADORNOME_SHARED_PREF, "");
+                        editor.putString(Config.JOGADORAPELIDO_SHARED_PREF, "");
+                        editor.putString(Config.JOGADOREMAIL_SHARED_PREF, "");*/
+                        editor.clear();
 
                         //Saving the sharedpreferences
                         editor.apply();
@@ -130,6 +219,7 @@ public class MenuRankedActivity extends AppCompatActivity {
                         //Starting login activity
                         Intent intent = new Intent(MenuRankedActivity.this, LoginActivity.class);
                         startActivity(intent);
+
                     }
                 });
 
@@ -147,19 +237,13 @@ public class MenuRankedActivity extends AppCompatActivity {
 
     }
 
-   // private MenuItem.OnMenuItemClickListener logoutClickListener = new MenuItem.OnMenuItemClickListener() {
-
-        //public void onMenuItemClick(MenuItem m) {
-          //  logout();
-       // }
-
-   // };
 
     public void SuecaOffline(View v) {
 
         Intent myIntent = new Intent(MenuRankedActivity.this, SuecaActivity.class);
 
         startActivity(myIntent);
+        finish();
     }
 
 
@@ -168,6 +252,7 @@ public class MenuRankedActivity extends AppCompatActivity {
         Intent myIntent = new Intent(MenuRankedActivity.this, ItaNomesActivity.class);
 
         startActivity(myIntent);
+        finish();
     }
 
     public void ItalianaRanked(View v) {
@@ -175,6 +260,7 @@ public class MenuRankedActivity extends AppCompatActivity {
         Intent myIntent = new Intent(MenuRankedActivity.this, ItaNomesRankedActivity.class);
 
         startActivity(myIntent);
+        finish();
     }
 
     public void GerirGrupo() {
@@ -182,6 +268,7 @@ public class MenuRankedActivity extends AppCompatActivity {
         Intent myIntent = new Intent(MenuRankedActivity.this, GerirGrupoActivity.class);
 
         startActivity(myIntent);
+        finish();
     }
 
     private void doExit() {
@@ -193,7 +280,7 @@ public class MenuRankedActivity extends AppCompatActivity {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finish();
+                finishAffinity();
             }
         });
 
