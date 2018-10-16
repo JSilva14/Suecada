@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,39 +17,52 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 public class MenuRankedActivity extends AppCompatActivity {
 
     EventBus myEventBus = EventBus.getDefault();
-    Toolbar rankedToolbar;
-    DrawerLayout mDrawerLayout;
-    ActionBarDrawerToggle mToggle;
-    NavigationView navViewMenuRanked;
-    MenuItem mItemMinhaConta, mItemMeusGrupos, mItemTerminarSessao,
+    private Toolbar rankedToolbar;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
+    private NavigationView navViewMenuRanked;
+    private MenuItem mItemMinhaConta, mItemMeusGrupos, mItemTerminarSessao,
             mItemInfo, mItemSair;
-    RecyclerView rvListaGrupos;
-    Button btnEntrarGrupo, btnCriarGrupo;
-    RecyclerViewAdapter rvAdapter;
 
-    private Context mContext = this;
+    private RecyclerView rvListaGrupos;
+    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.Adapter adapter;
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private Button btnEntrarGrupo, btnCriarGrupo;
+
+    Context mContext=this;
 
     SharedPreferences sharedPreferences;
+
+    //lista de objetos Grupo para guardar informação recebida no request ao servidor
+    List<Grupo> listGrupos;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,17 +123,42 @@ public class MenuRankedActivity extends AppCompatActivity {
             }
         });
 
-        //Inicializar sharedpreferences e obter o username do jogador atual
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String jogador = sharedPreferences.getString(Config.JOGADORUSERNAME_SHARED_PREF, "Not Available");
+
+        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+
 
         rvListaGrupos = findViewById(R.id.rvListaGrupos);
         rvListaGrupos.setItemAnimator(new DefaultItemAnimator());
-        rvListaGrupos.setLayoutManager(new LinearLayoutManager(this));
+        rvListaGrupos.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        rvListaGrupos.setLayoutManager(layoutManager);
+
+        listGrupos = new ArrayList<>();
+
+
+
+        //rvListaGrupos.setOnScrollChangeListener(this);
+
+        //initializing our adapter
+        adapter = new CardAdapter(listGrupos, this);
+
+        //Adding adapter to recyclerview
+        rvListaGrupos.setAdapter(adapter);
 
         getGrupos();
 
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                getGrupos();
+            }
+        });
+
+        mSwipeRefreshLayout.setNestedScrollingEnabled(true);
     }
+
+
 
     //Não mostrar menu de overflow na toolbar
     @Override
@@ -143,24 +182,41 @@ public class MenuRankedActivity extends AppCompatActivity {
                     @Override
                     public void onSuccessResponse(String resposta) {
 
-                        Log.d("GRUPOS","GRUPOS: " );
-                        Log.d("GRUPOS", resposta);
+                        listGrupos.clear();
+                        adapter.notifyDataSetChanged();
 
                         try {
-                            //obter o array "result" na respostaJSON
+                            //obter o JSON "result" na resposta JSON
                             JSONObject result = new JSONObject(resposta);
 
-
-                            String sucesso = result.getString("sucesso");
-                            String mensagemResposta = result.getString("mensagem");
+                            //Extrair json object "status" do objeto "result"
+                            JSONObject requestStatus = result.getJSONObject("Status");
+                            String sucesso = requestStatus.getString("sucesso");
+                            String mensagemResposta = requestStatus.getString("mensagem");
 
                             switch (sucesso) {
 
                                 case "1":
 
-                                    String nomeGrupo = result.getString("nomeGrupo");
-                                    String flgAdmin = result.getString("flgAdmin");
-                                    String numJogadores = result.getString("numjogadores");
+                                    //Extrair informação dos grupos da resposta JSON
+                                    JSONArray arrayGrupos = result.getJSONArray("Grupos");
+
+                                    for(int i=0; i<arrayGrupos.length(); i++) {
+                                        Grupo grupo = new Grupo();
+                                        try {
+                                            JSONObject grupoData = arrayGrupos.getJSONObject(i);
+
+                                            grupo.setNome(grupoData.getString("nomeGrupo"));
+                                            grupo.setNumJogadores(grupoData.getString("numJogadores"));
+                                            grupo.setFlgAdmin(grupoData.getString("flgAdmin"));
+                                        } catch (JSONException e){
+                                            e.printStackTrace();
+                                        }
+                                        listGrupos.add(grupo);
+
+                                    }
+                                    adapter.notifyDataSetChanged();
+                                    mSwipeRefreshLayout.setRefreshing(false);
 
                                     break;
 
@@ -169,7 +225,6 @@ public class MenuRankedActivity extends AppCompatActivity {
                                     //Mostrar "Toast" com mensagem de erro
                                     Toast.makeText(mContext, mensagemResposta,
                                             Toast.LENGTH_LONG).show();
-                                    //
                                     break;
 
 
@@ -301,4 +356,5 @@ public class MenuRankedActivity extends AppCompatActivity {
         super.onStop();
         finish();
     }
+
 }

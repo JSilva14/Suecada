@@ -45,6 +45,7 @@
     <string name="abrir">abrir</string>
     <string name="fechar">fechar</string>
     <string name="admin">Administrador</string>
+    <string name="membro">Membro</string>
     <string name="entrar">Entrar</string>
 
     <!-- Strings related to login -->
@@ -56,12 +57,7 @@
     <string name="prompt_apelido">Apelido</string>
     <string name="action_login">Login</string>
     <string name="action_login_short">Login</string>
-    <string name="error_grupo_invalido">This email address is invalid</string>
-    <string name="error_password_invalida">This password is too short</string>
-    <string name="error_password_incorreta">This password is incorrect</string>
     <string name="error_campo_obrigatorio">Este campo é obrigatório</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."</string>
     <string name="criar_novo_grupo"><u>Criar novo grupo</u></string>
     <string name="criar_grupo">Criar Grupo</string>
     <string name="esqueceupw"><u>Esqueceu-se da palavra-passe?</u></string>
@@ -69,6 +65,9 @@
     <string name="confirmar_password">Confirmar Password</string>
     <string name="terminar_sessao">Terminar Sessão</string>
     <string name="ligado_grupo">Grupo Atual: </string>
+    <string name="grupo">Grupo: </string>
+    <string name="membros">Membros: </string>
     <string name="grupo_atual">%1$s</string>
+
 
 </resources>
