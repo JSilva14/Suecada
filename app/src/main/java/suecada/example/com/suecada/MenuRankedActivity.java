@@ -21,7 +21,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -43,9 +42,7 @@ public class MenuRankedActivity extends AppCompatActivity {
     private Toolbar rankedToolbar;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    private NavigationView navViewMenuRanked;
-    private MenuItem mItemMinhaConta, mItemMeusGrupos, mItemTerminarSessao,
-            mItemInfo, mItemSair;
+    private NavigationView navViewMenu;
 
     private RecyclerView rvListaGrupos;
     private RecyclerView.LayoutManager layoutManager;
@@ -79,19 +76,13 @@ public class MenuRankedActivity extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
-        navViewMenuRanked = findViewById(R.id.navViewMenuRanked);
-        mItemMinhaConta = findViewById(R.id.nav_minha_conta);
-        mItemMeusGrupos = findViewById(R.id.nav_meus_grupos);
-        mItemInfo = findViewById(R.id.nav_info);
-        mItemTerminarSessao = findViewById(R.id.nav_terminar_sessao);
-        mItemSair = findViewById(R.id.nav_sair);
-
+        navViewMenu = findViewById(R.id.navViewMenuRanked);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.ic_launcher);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-        navViewMenuRanked.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navViewMenu.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
@@ -100,7 +91,7 @@ public class MenuRankedActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.nav_meus_grupos:
-                        GerirGrupo();
+                        //GerirGrupo();
                         return true;
 
                     case R.id.nav_info:
@@ -310,21 +301,8 @@ public class MenuRankedActivity extends AppCompatActivity {
         finish();
     }
 
-    public void ItalianaRanked(View v) {
 
-        Intent myIntent = new Intent(MenuRankedActivity.this, ItaNomesRankedActivity.class);
 
-        startActivity(myIntent);
-        finish();
-    }
-
-    public void GerirGrupo() {
-
-        Intent myIntent = new Intent(MenuRankedActivity.this, GerirGrupoActivity.class);
-
-        startActivity(myIntent);
-        finish();
-    }
 
     private void doExit() {
 

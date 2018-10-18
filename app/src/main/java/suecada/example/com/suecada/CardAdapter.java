@@ -1,11 +1,9 @@
 package suecada.example.com.suecada;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +18,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     //guardar todos os grupos recebidos
     List<Grupo> grupos;
+    CardView cardView;
 
     //Constructor of this class
     public CardAdapter(List<Grupo> grupos, Context mContext) {
@@ -44,23 +43,27 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         Grupo grupo = grupos.get(position);
         final String nomeGrupo = grupo.getNome();
         String numJogadores = grupo.getNumJogadores();
-        String tvAdmin;
+        final String flgAdmin;
         if(grupo.getFlgAdmin().equals("1"))
-            tvAdmin="Administrador";
+            flgAdmin="Administrador";
         else
-            tvAdmin="Membro";
+            flgAdmin="Membro";
 
         //Mostrar dados nas Views
         holder.tvNomeGrupo.setText(nomeGrupo);
         holder.tvNumJogadores.setText(numJogadores);
-        holder.tvAdmin.setText(tvAdmin);
+        holder.tvAdmin.setText(flgAdmin);
 
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("CLICK", "Selecionado" + nomeGrupo);
-                v.setBackgroundColor(Color.parseColor("#B2DFDB"));
+
+                Intent myIntent = new Intent(mContext, MenuGrupoActivity.class);
+                myIntent.putExtra("nomeGrupo",nomeGrupo);
+                myIntent.putExtra("permissoes",flgAdmin);
+
+                mContext.startActivity(myIntent);
+
             }
         });
     }
@@ -80,6 +83,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             tvNomeGrupo = itemView.findViewById(R.id.tvNomeGrupo);
             tvNumJogadores = itemView.findViewById(R.id.tvNumJogadores);
             tvAdmin = itemView.findViewById(R.id.tvAdmin);
+            cardView = itemView.findViewById(R.id.grupo_row);
         }
     }
 }

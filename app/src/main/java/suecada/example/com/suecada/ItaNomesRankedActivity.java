@@ -43,8 +43,8 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = ItaNomesRankedActivity.this.getSharedPreferences(
                 Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String grupoAtualID=sharedPreferences.getString(Config.JOGADORID_SHARED_PREF,"Not Available");
-        String url = Config.JOGADORES_URL+grupoAtualID;
+        String grupoAtual=sharedPreferences.getString(Config.GRUPONOME_SHARED_PREF,"Not Available");
+        String url = Config.JOGADORES_URL+grupoAtual;
 
         Button seguinte = (Button) findViewById(suecada.example.com.suecada.R.id.btnrSeguinte);
         buttonEffect(seguinte);
@@ -90,6 +90,7 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
                     for(int i=0; i<result.length(); i++) {
 
                         JSONObject grupoData = result.getJSONObject(i);
+                        Toast.makeText(mContext, grupoData.getString("nome"), Toast.LENGTH_LONG).show();
 
                         //nome += grupoData.getString(Config.KEY_NOME);
                        listaJogadores.add(grupoData.getString("nome"));

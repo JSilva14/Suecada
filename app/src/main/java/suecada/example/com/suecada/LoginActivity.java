@@ -53,8 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(loginClickListener);
         buttonEffect(btnLogin);
         btnLogin.setVisibility(View.VISIBLE);
-
-
     }
 
     @Override

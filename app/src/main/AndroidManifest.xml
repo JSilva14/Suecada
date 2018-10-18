@@ -63,9 +63,11 @@
             android:name=".MenuOfflineActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
-        <activity android:name=".GerirGrupoActivity"
+        <activity
+            android:name=".GerirGrupoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
+        <activity android:name=".MenuGrupoActivity"></activity>
     </application>
 
 </manifest>
