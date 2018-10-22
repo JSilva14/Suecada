@@ -83,7 +83,8 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    JSONArray result = jsonObject.getJSONArray("resultJogadores");
+                    JSONArray result = jsonObject.getJSONArray("resultjogadores");
+                    Toast.makeText(mContext, response, Toast.LENGTH_SHORT).show();
 
                     //preencher um JSON Object com os nomes dos jogadores do grupo atual
                     //e adicionar os nomes à List listaJogadores
