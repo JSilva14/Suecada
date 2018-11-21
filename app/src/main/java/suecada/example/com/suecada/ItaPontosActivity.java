@@ -27,7 +27,7 @@ public class ItaPontosActivity extends AppCompatActivity {
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 
-        final ViewPager mViewPager = (ViewPager) findViewById(suecada.example.com.suecada.R.id.view_pager);
+        final ViewPager mViewPager = findViewById(suecada.example.com.suecada.R.id.view_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
@@ -86,48 +86,43 @@ public class ItaPontosActivity extends AppCompatActivity {
 
                     Intent intent = getIntent();
 
-                    String jogador1 = intent.getExtras().getString("jogador1");
-                    String jogador2 = intent.getExtras().getString("jogador2");
-                    String jogador3 = intent.getExtras().getString("jogador3");
-                    String jogador4 = intent.getExtras().getString("jogador4");
-                    String jogador5 = intent.getExtras().getString("jogador5");
                     ItaPontosFrag itaPontosFrag = ItaPontosFrag.newInstance();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("jogador1", jogador1);
-                    bundle.putString("jogador2", jogador2);
-                    bundle.putString("jogador3", jogador3);
-                    bundle.putString("jogador4", jogador4);
-                    bundle.putString("jogador5", jogador5);
-                    // set Fragmentclass Arguments
 
-                    itaPontosFrag.setArguments(bundle);
+                    Bundle bundleJogadores = getJogadoresBundle(intent);
+                    itaPontosFrag.setArguments(bundleJogadores);
 
                     return itaPontosFrag;
                 case 1:
 
                     intent = getIntent();
 
-                    jogador1 = intent.getExtras().getString("jogador1");
-                    jogador2 = intent.getExtras().getString("jogador2");
-                    jogador3 = intent.getExtras().getString("jogador3");
-                    jogador4 = intent.getExtras().getString("jogador4");
-                    jogador5 = intent.getExtras().getString("jogador5");
-                    ItaListaFrag itaLista;
-                    itaLista = ItaListaFrag.newInstance();
-                    bundle = new Bundle();
-                    bundle.putString("jogador1", jogador1);
-                    bundle.putString("jogador2", jogador2);
-                    bundle.putString("jogador3", jogador3);
-                    bundle.putString("jogador4", jogador4);
-                    bundle.putString("jogador5", jogador5);
+                    ItaListaFrag itaLista = ItaListaFrag.newInstance();
 
-                    itaLista.setArguments(bundle);
+                    bundleJogadores = getJogadoresBundle(intent);
+
+                    itaLista.setArguments(bundleJogadores);
 
                     return itaLista;
             }
             return null;
         }
 
+        public Bundle getJogadoresBundle(Intent intent){
+
+            String jogador1 = intent.getExtras().getString("jogador1");
+            String jogador2 = intent.getExtras().getString("jogador2");
+            String jogador3 = intent.getExtras().getString("jogador3");
+            String jogador4 = intent.getExtras().getString("jogador4");
+            String jogador5 = intent.getExtras().getString("jogador5");
+            Bundle bundle = new Bundle();
+            bundle.putString("jogador1", jogador1);
+            bundle.putString("jogador2", jogador2);
+            bundle.putString("jogador3", jogador3);
+            bundle.putString("jogador4", jogador4);
+            bundle.putString("jogador5", jogador5);
+
+            return bundle;
+        }
 
         @Override
         public int getCount() {

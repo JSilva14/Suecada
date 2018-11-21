@@ -84,16 +84,15 @@
 
     <Button
         android:id="@+id/btnrSeguinte"
-        android:textColor="@color/primary_text"
-        android:background="@color/icons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/scrollView2"
         android:layout_alignStart="@id/scrollView2"
         android:layout_alignEnd="@id/scrollView2"
-        android:layout_below="@+id/scrollView2"
         android:layout_marginTop="40dp"
-        android:onClick="guardaNomesRanked"
-        android:text="@string/seguinte" />
+        android:background="@color/icons"
+        android:text="@string/seguinte"
+        android:textColor="@color/primary_text" />
 
     <TextView
         android:id="@+id/tvNomes"

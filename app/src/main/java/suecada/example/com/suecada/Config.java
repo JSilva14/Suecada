@@ -22,8 +22,11 @@ class Config {
     //Informações acerco do grupo atual
     static final String GRUPOID_SHARED_PREF = "idGrupo";
     static final String GRUPONOME_SHARED_PREF = "nomeGrupo";
+    static final String GRUPOCODIGOACESSO_SHARED_PREF = "codigoAcesso";
     static final String GRUPOPERMISSOES_SHARED_PREF = "permissoes";
 
+    //Informações acerca da sessão atual
+    static final String SESSAOATIVA_SHARED_PREF = "uuidSessao";
 
     //########################
     //      API URLS
@@ -33,7 +36,10 @@ class Config {
     //URL to php files
     static final String LOGIN_URL = SERVER_URL + "/login.php";
     static final String REGISTO_URL = SERVER_URL + "registo.php";
-    static final String GRUPO_ATUAL_URL = SERVER_URL + "getInfoGrupo.php";
-    static final String JOGADORES_URL = SERVER_URL + "getJogadores.php?nome=";
+    static final String JOGADORES_DISPONIVEIS_URL = SERVER_URL + "getJogadoresDisponiveis.php";
+    static final String JOGADORES_URL = SERVER_URL + "getJogadores.php";
     static final String GRUPOS_URL = SERVER_URL + "getGrupos.php";
+    static final String GRUPOINFO_URL = SERVER_URL + "getInfoGrupo.php";
+
+    static final String INICIAR_SESSAO_URL = SERVER_URL + "iniciarSessaoItaliana.php";
 }

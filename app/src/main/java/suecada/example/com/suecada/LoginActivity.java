@@ -135,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                                     finish();
                                     break;
 
+                                //Password errada
                                 case "0":
                                     //Caso a resposta do servidor não seja successo
                                     //Mostrar "Toast" com mensagem de erro
@@ -142,10 +143,10 @@ public class LoginActivity extends AppCompatActivity {
                                             Toast.LENGTH_LONG).show();
                                     btnLogin.setVisibility(View.VISIBLE);
                                     loading.setVisibility(View.GONE);
-                                    etLoginUsername.setText("");
                                     etLoginPassword.setText("");
                                     break;
 
+                                //Jogador não registado
                                 case "2":
                                     //Caso a resposta do servidor não seja successo
                                     //Mostrar "Toast" com mensagem de erro
@@ -164,6 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                                     loading.setVisibility(View.GONE);
                                     etLoginUsername.setText("");
                                     etLoginPassword.setText("");
+                                    break;
 
                             }
                         } catch (JSONException e) {

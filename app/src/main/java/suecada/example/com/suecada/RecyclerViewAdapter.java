@@ -5,7 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -17,6 +21,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ItemClickListener mClickListener;
     //passar por parametro qual o layout que queremos inserir na recyclerview
     private int listRowToInflate;
+    private LinearLayout jogadorRow;
 
     // passar dados para o construtor
     RecyclerViewAdapter(Context context, List<String> data, int listRowToInflate) {
@@ -36,7 +41,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String jogador = mData.get(position);
-        holder.myTextView.setText(jogador);
+        holder.tvJogadorNome.setText(jogador);
+        holder.tvJogadorPontuacao.setText("0");
     }
 
     // num total de items
@@ -48,12 +54,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     // guarda e recicla views quando desaparecem do ecrã
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+        TextView tvJogadorNome, tvJogadorPontuacao;
+        RadioButton rbJogadorCheck;
 
-        ViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(listRowToInflate);
-            itemView.setOnClickListener(this);
+            tvJogadorNome = itemView.findViewById(R.id.tvJogadorNome);
+            tvJogadorPontuacao = itemView.findViewById(R.id.tvJogadorPontuacao);
+            rbJogadorCheck = itemView.findViewById(R.id.tvAdmin);
+            jogadorRow = itemView.findViewById(R.id.jogadorRow);
         }
 
         @Override

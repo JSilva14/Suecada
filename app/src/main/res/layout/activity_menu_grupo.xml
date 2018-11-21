@@ -40,7 +40,7 @@
                 android:layout_marginEnd="162dp"
                 android:layout_marginBottom="38dp"
                 android:onClick="ItalianaRanked"
-                android:text="Button"
+                android:text="@string/suecaItalianaCompetitivo"
                 app:layout_constraintBottom_toTopOf="@+id/btnRanking"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,10 +54,10 @@
                 android:layout_marginTop="49dp"
                 android:layout_marginEnd="162dp"
                 android:layout_marginBottom="56dp"
-                android:text="Button"
+                android:text="@string/consultarRanking"
                 app:layout_constraintBottom_toTopOf="@+id/btnGerirGrupo"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.493"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnItalianaRanked" />
 
@@ -70,9 +70,10 @@
                 android:layout_marginEnd="162dp"
                 android:layout_marginBottom="232dp"
                 android:onClick="GerirGrupo"
-                android:text="Button"
+                android:text="@string/gerir_grupo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.48"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnRanking" />
 

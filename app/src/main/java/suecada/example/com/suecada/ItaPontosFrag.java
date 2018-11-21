@@ -999,7 +999,7 @@ public class ItaPontosFrag extends Fragment {
             if (isChecked) {
                 idbotao = buttonView.getTag().toString();
                 buttonView.setBackgroundColor(Color.parseColor("#B2DFDB"));
-                if (idbotao.equals("j1")) {
+                if (idbotao.equals("actvj1")) {
                     if ((j2.isChecked() && (j3.isChecked() || j4.isChecked() || j5.isChecked()))
                             || (j3.isChecked() && (j4.isChecked() || j5.isChecked()))
                             || (j4.isChecked() && j5.isChecked())) {
@@ -1009,7 +1009,7 @@ public class ItaPontosFrag extends Fragment {
                         j5.setChecked(false);
                     }
 
-                } else if (idbotao.equals("j2")) {
+                } else if (idbotao.equals("actvj2")) {
                     if ((j1.isChecked() && (j3.isChecked() || j4.isChecked() || j5.isChecked()))
                             || (j3.isChecked() && (j4.isChecked() || j5.isChecked()))
                             || (j4.isChecked() && j5.isChecked())) {
@@ -1019,7 +1019,7 @@ public class ItaPontosFrag extends Fragment {
                         j5.setChecked(false);
                     }
 
-                } else if (idbotao.equals("j3")) {
+                } else if (idbotao.equals("actvj3")) {
                     if ((j1.isChecked() && (j2.isChecked() || j4.isChecked() || j5.isChecked()))
                             || (j2.isChecked() && (j4.isChecked() || j5.isChecked()))
                             || (j4.isChecked() && j5.isChecked())) {
@@ -1028,7 +1028,7 @@ public class ItaPontosFrag extends Fragment {
                         j4.setChecked(false);
                         j5.setChecked(false);
                     }
-                } else if (idbotao.equals("j4")) {
+                } else if (idbotao.equals("actvj4")) {
                     if ((j1.isChecked() && (j2.isChecked() || j3.isChecked() || j5.isChecked()))
                             || (j2.isChecked() && (j3.isChecked() || j5.isChecked()))
                             || (j3.isChecked() && j5.isChecked())) {
@@ -1037,7 +1037,7 @@ public class ItaPontosFrag extends Fragment {
                         j3.setChecked(false);
                         j5.setChecked(false);
                     }
-                } else if (idbotao.equals("j5")) {
+                } else if (idbotao.equals("actvj5")) {
                     if ((j1.isChecked() && (j2.isChecked() || j3.isChecked() || j4.isChecked()))
                             || (j2.isChecked() && (j3.isChecked() || j4.isChecked()))
                             || (j3.isChecked() && j4.isChecked())) {

@@ -3,14 +3,24 @@ package suecada.example.com.suecada;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import com.android.volley.VolleyError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ItaPontosRankedActivity extends AppCompatActivity {
@@ -141,4 +151,6 @@ public class ItaPontosRankedActivity extends AppCompatActivity {
             return tabtitles[position];
         }
     }
+
+
 }

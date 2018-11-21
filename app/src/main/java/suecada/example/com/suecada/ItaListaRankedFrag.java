@@ -18,7 +18,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import static suecada.example.com.suecada.R.id.headerItalianaR;
 import static suecada.example.com.suecada.R.id.headerJ1R;
 import static suecada.example.com.suecada.R.id.headerJ2R;
 import static suecada.example.com.suecada.R.id.headerRowR;
@@ -62,7 +61,6 @@ public class ItaListaRankedFrag extends Fragment {
         tvj5 = (TextView) rootView.findViewById(headerj5R);
 
 
-        header = (TableLayout) rootView.findViewById(headerItalianaR);
         jogadores = (TableRow) rootView.findViewById(headerRowR);
         tabelaPontosIta = (TableLayout) rootView.findViewById(tblPontuacaoItaR);
         scrollviewIta = ((ScrollView) rootView.findViewById(suecada.example.com.suecada.R.id.scrollViewItaR));
@@ -133,7 +131,6 @@ public class ItaListaRankedFrag extends Fragment {
         jogadores.setBackgroundColor(Color.parseColor("#dcedff"));
 
         jogadores.setPadding(1, 5, 1, 5);
-        header.setStretchAllColumns(true);
 
 
         //  ArrayAdapter<ArrayList> arrayAdapter = new ArrayAdapter<ArrayList>();

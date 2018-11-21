@@ -3,27 +3,32 @@
     android:id="@+id/jogadorRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:adnroid="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:background="@color/white"
+    android:layout_marginBottom="4dp"
+    android:elevation="4dp"
+    android:padding="10dp"
+    android:weightSum="2.25">
 
     <TextView
         android:id="@+id/tvJogadorNome"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:layout_weight="2"/>
 
     <TextView
         android:id="@+id/tvJogadorPontuacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:layout_weight="0.25"/>
 
     <RadioButton
         android:id="@+id/rbJogadorCheck"
-        android:visibility="invisible"
-        android:layout_marginEnd="2dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:visibility="invisible" />
 
 </LinearLayout>

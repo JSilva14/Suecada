@@ -12,11 +12,21 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.android.volley.VolleyError;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MenuGrupoActivity extends AppCompatActivity {
 
@@ -98,12 +108,89 @@ public class MenuGrupoActivity extends AppCompatActivity {
         editor.putString(Config.GRUPOPERMISSOES_SHARED_PREF, permissoes);
         editor.apply();
 
+        getInfoGrupoAtual();
     }
 
     //Não mostrar menu de overflow na toolbar
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         return false;
+    }
+
+    private void getInfoGrupoAtual(){
+
+        //Obter username e password inseridos pelo user
+        final String nomeGrupo = sharedPreferences.getString(Config.GRUPONOME_SHARED_PREF,
+                Config.GRUPONOME_SHARED_PREF);
+
+        //Criar Hashmap com os parametros que queremos colocar no pedido à BD
+        Map<String, String> parametros = new HashMap<>();
+        parametros.put("nome", nomeGrupo);
+
+        //Instanciar DBData para efetuar um request à API
+        DBData dbData = new DBData();
+
+        dbData.fetchResponse(mContext, Config.GRUPOINFO_URL,
+                parametros, new VolleyCallback() {
+                    @Override
+                    public void onSuccessResponse(String resposta) {
+
+                        try {
+                            Log.d("RESPOSTA", resposta);
+                            //obter o array "result" na respostaJSON
+                            JSONObject result = new JSONObject(resposta);
+
+                            String sucesso = result.getString("sucesso");
+                            String mensagemResposta = result.getString("mensagem");
+                            Log.d("SUCESSO: ", sucesso);
+
+
+                            switch (sucesso) {
+
+                                case "1":
+
+                                    String idGrupo = result.getString("id");
+                                    String codigoAcesso = result.getString("codigo_acesso");
+
+                                    //Criar editor para editar valores nas shared preferences
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                    //Adicionar valores ao editor
+                                    //Editar flags de info do grupo atual
+                                    editor.putString(Config.GRUPOID_SHARED_PREF, idGrupo);
+                                    editor.putString(Config.GRUPOCODIGOACESSO_SHARED_PREF, codigoAcesso);
+
+                                    //Aplicar alterações
+                                    editor.apply();
+                                    break;
+
+                                //Password errada
+                                case "0":
+                                    //Caso a resposta do servidor não seja successo
+                                    //Mostrar "Toast" com mensagem de erro
+                                    Toast.makeText(mContext, mensagemResposta,
+                                            Toast.LENGTH_LONG).show();
+                                    finishAffinity();
+                                    break;
+
+                                default:
+                                    Toast.makeText(mContext, "Ocorreu um erro na ligação ao servidor",
+                                            Toast.LENGTH_LONG).show();
+                                    finishAffinity();
+                                    break;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            finishAffinity();
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(mContext, error.getMessage(), Toast.LENGTH_LONG).show();
+                        finishAffinity();
+                    }
+                });
     }
 
     private void logout() {

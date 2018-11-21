@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -21,8 +22,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GerirGrupoActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener {
 
@@ -34,6 +38,8 @@ public class GerirGrupoActivity extends AppCompatActivity implements RecyclerVie
 
     List<String> JOGADORES = new ArrayList<>();
 
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +48,13 @@ public class GerirGrupoActivity extends AppCompatActivity implements RecyclerVie
         rvListaJogadores = findViewById(R.id.rvListaJogadores);
         rvListaJogadores.setItemAnimator(new DefaultItemAnimator());
         rvListaJogadores.setLayoutManager(new LinearLayoutManager(this));
+
+
+        rvAdapter = new RecyclerViewAdapter(mContext, JOGADORES, R.id.jogadorRow);
+        rvAdapter.setClickListener(this);
+
+        sharedPreferences = GerirGrupoActivity.this.getSharedPreferences(
+                Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
         getJogadores();
     }
@@ -54,51 +67,43 @@ public class GerirGrupoActivity extends AppCompatActivity implements RecyclerVie
 
     private void getJogadores() {
 
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences(
-                Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String grupoAtualID=sharedPreferences.getString(Config.JOGADORID_SHARED_PREF,"Not Available");
-        String url = Config.JOGADORES_URL+grupoAtualID;
 
-        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                //loading.dismiss();
-                showJSON(response);
-            }
-        },
-                new Response.ErrorListener() {
+        //Criar Hashmap com os parametros que queremos colocar no pedido à BD
+        Map<String, String> parametros = new HashMap<>();
+        parametros.put("nome", sharedPreferences.getString(Config.GRUPONOME_SHARED_PREF,
+                Config.GRUPONOME_SHARED_PREF));
+
+        //Instanciar DBData para efetuar um request à API
+        DBData dbData = new DBData();
+
+        dbData.fetchResponse(mContext, Config.JOGADORES_URL,
+                parametros, new VolleyCallback() {
+                    @Override
+                    public void onSuccessResponse(String resposta) {
+                        String nome="";
+
+                        int i;
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(resposta);
+                            JSONArray result = jsonObject.getJSONArray("resultjogadores");
+                            for(i=0; i<result.length(); i++) {
+                                JSONObject grupoData = result.getJSONObject(i);
+
+                                JOGADORES.add(grupoData.getString("nome"));
+                                rvListaJogadores.setAdapter(rvAdapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Toast.makeText(GerirGrupoActivity.this, "NOMES= " +nome,Toast.LENGTH_LONG).show();
+                    }
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(GerirGrupoActivity.this, error.getMessage(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
     }
-
-    private void showJSON(String response){
-        String nome="";
-        int i;
-
-        try {
-            JSONObject jsonObject = new JSONObject(response);
-            JSONArray result = jsonObject.getJSONArray("resultJogadores");
-            for(i=0; i<result.length(); i++) {
-                JSONObject grupoData = result.getJSONObject(i);
-
-                JOGADORES.add(grupoData.getString("nome"));
-
-                rvAdapter = new RecyclerViewAdapter(this, JOGADORES, R.id.jogadorRow);
-                rvAdapter.setClickListener(this);
-                rvListaJogadores.setAdapter(rvAdapter);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Toast.makeText(GerirGrupoActivity.this, "NOMES= " +nome,Toast.LENGTH_LONG).show();
-    }
-
 }
 
 
