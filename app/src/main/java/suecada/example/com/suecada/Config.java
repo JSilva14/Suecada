@@ -29,11 +29,11 @@ class Config {
     static final String SESSAOATIVA_SHARED_PREF = "uuidSessao";
 
     //########################
-    //      API URLS
+    //      API ENDPOINTS
     //########################
     //URL servidor
     private static final String SERVER_URL = "http://35.178.49.133/suecada/";
-    //URL to php files
+    //ENDPOINTS
     static final String LOGIN_URL = SERVER_URL + "/login.php";
     static final String REGISTO_URL = SERVER_URL + "registo.php";
     static final String JOGADORES_DISPONIVEIS_URL = SERVER_URL + "getJogadoresDisponiveis.php";
@@ -41,5 +41,5 @@ class Config {
     static final String GRUPOS_URL = SERVER_URL + "getGrupos.php";
     static final String GRUPOINFO_URL = SERVER_URL + "getInfoGrupo.php";
 
-    static final String INICIAR_SESSAO_URL = SERVER_URL + "iniciarSessaoItaliana.php";
+    static final String CRIAR_SESSAO_URL = SERVER_URL + "criarSessaoItaliana.php";
 }

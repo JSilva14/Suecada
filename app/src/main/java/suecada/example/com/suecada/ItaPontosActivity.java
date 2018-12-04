@@ -22,8 +22,6 @@ public class ItaPontosActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Arraste para a esquerda para consultar o histórico de pontuações por ronda!"
                 , Toast.LENGTH_LONG).show();
 
-
-
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 

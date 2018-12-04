@@ -57,7 +57,7 @@ public class MenuRankedActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
 
     //lista de objetos Grupo para guardar informação recebida no request ao servidor
-    List<Grupo> listGrupos;
+    List<Grupo> listaGrupos;
 
 
 
@@ -115,7 +115,7 @@ public class MenuRankedActivity extends AppCompatActivity {
         });
 
 
-        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout = findViewById(R.id.gruposSwipeRefreshLayout);
 
 
         rvListaGrupos = findViewById(R.id.rvListaGrupos);
@@ -124,14 +124,14 @@ public class MenuRankedActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         rvListaGrupos.setLayoutManager(layoutManager);
 
-        listGrupos = new ArrayList<>();
+        listaGrupos = new ArrayList<>();
 
 
 
         //rvListaGrupos.setOnScrollChangeListener(this);
 
         //initializing our adapter
-        adapter = new CardAdapter(listGrupos, this);
+        adapter = new CardAdapterGrupo(listaGrupos, this);
 
         //Adding adapter to recyclerview
         rvListaGrupos.setAdapter(adapter);
@@ -173,7 +173,7 @@ public class MenuRankedActivity extends AppCompatActivity {
                     @Override
                     public void onSuccessResponse(String resposta) {
 
-                        listGrupos.clear();
+                        listaGrupos.clear();
                         adapter.notifyDataSetChanged();
 
                         try {
@@ -203,7 +203,7 @@ public class MenuRankedActivity extends AppCompatActivity {
                                         } catch (JSONException e){
                                             e.printStackTrace();
                                         }
-                                        listGrupos.add(grupo);
+                                        listaGrupos.add(grupo);
 
                                     }
                                     adapter.notifyDataSetChanged();

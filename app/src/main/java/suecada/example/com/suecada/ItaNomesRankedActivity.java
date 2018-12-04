@@ -84,6 +84,8 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(resposta);
                     JSONArray result = jsonObject.getJSONArray("resultjogadores");
 
+                    Log.d("RESPOSTA", resposta);
+
                     //preencher um JSON Object com os nomes dos jogadores do grupo atual
                     //e adicionar os nomes à List listaJogadores
                     for(int i=0; i<result.length(); i++) {
@@ -91,7 +93,7 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
                         JSONObject grupoData = result.getJSONObject(i);
 
                         //nome += grupoData.getString(Config.KEY_NOME);
-                       listaJogadores.add(grupoData.getString("nome"));
+                       listaJogadores.add(grupoData.getString("username"));
 
                        //Associar List ao adapter
                        adapter = new ArrayAdapter<>(mContext,
@@ -154,7 +156,7 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
         //Instanciar DBData para efetuar um request à API
         DBData dbData = new DBData();
 
-        dbData.fetchResponse(mContext, Config.INICIAR_SESSAO_URL,
+        dbData.fetchResponse(mContext, Config.CRIAR_SESSAO_URL,
                 parametros, new VolleyCallback() {
                     @Override
                     public void onSuccessResponse(String resposta) {
@@ -202,6 +204,14 @@ public class ItaNomesRankedActivity extends AppCompatActivity {
                                     //Caso a resposta do servidor não seja successo
                                     //Mostrar "Toast" com mensagem de erro
                                     Toast.makeText(mContext, mensagemResposta,
+
+
+
+
+
+
+
+
                                             Toast.LENGTH_LONG).show();
                                     break;
 

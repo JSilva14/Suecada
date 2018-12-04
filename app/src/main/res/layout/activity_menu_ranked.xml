@@ -43,12 +43,12 @@
                 android:text="@string/meus_grupos"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/primary_text"
-                app:layout_constraintBottom_toTopOf="@+id/swipeRefreshLayout"
+                app:layout_constraintBottom_toTopOf="@+id/gruposSwipeRefreshLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/swipeRefreshLayout"
+                android:id="@+id/gruposSwipeRefreshLayout"
                 android:layout_width="351dp"
                 android:layout_height="442dp"
                 android:layout_marginStart="30dp"

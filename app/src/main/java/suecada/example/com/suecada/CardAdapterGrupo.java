@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
+public class CardAdapterGrupo extends RecyclerView.Adapter<CardAdapterGrupo.ViewHolder> {
 
     private Context mContext;
 
@@ -21,7 +21,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     CardView cardView;
 
     //Constructor of this class
-    public CardAdapter(List<Grupo> grupos, Context mContext) {
+    public CardAdapterGrupo(List<Grupo> grupos, Context mContext) {
         super();
         //Getting all superheroes
         this.grupos = grupos;
