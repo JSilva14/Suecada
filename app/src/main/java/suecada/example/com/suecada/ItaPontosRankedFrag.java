@@ -1,7 +1,9 @@
 package suecada.example.com.suecada;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,10 +17,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.android.volley.VolleyError;
+
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static suecada.example.com.suecada.SuecaActivity.buttonEffect;
 
@@ -26,8 +34,7 @@ import static suecada.example.com.suecada.SuecaActivity.buttonEffect;
 public class ItaPontosRankedFrag extends Fragment {
 
     public ToggleButton j1, j2, j3, j4, j5;
-    public TextView p1, p2, p3, p4, p5;
-
+    public TextView p1, p2, p3, p4, p5, idSessao;
 
     int[] ronda = new int[5];
     ArrayList<String> historico = new ArrayList<>();
@@ -39,16 +46,17 @@ public class ItaPontosRankedFrag extends Fragment {
 
         //  Log.d("RONDA",getArguments().getString("jogador1"));
 
-        j1 = (ToggleButton) rootView.findViewById(suecada.example.com.suecada.R.id.tBJ1R);
-        j2 = (ToggleButton) rootView.findViewById(suecada.example.com.suecada.R.id.tBJ2R);
-        j3 = (ToggleButton) rootView.findViewById(suecada.example.com.suecada.R.id.tBJ3R);
-        j4 = (ToggleButton) rootView.findViewById(suecada.example.com.suecada.R.id.tbJ4R);
-        j5 = (ToggleButton) rootView.findViewById(suecada.example.com.suecada.R.id.tBJ5R);
-        p1 = (TextView) rootView.findViewById(suecada.example.com.suecada.R.id.tVJ1R);
-        p2 = (TextView) rootView.findViewById(suecada.example.com.suecada.R.id.tVJ2R);
-        p3 = (TextView) rootView.findViewById(suecada.example.com.suecada.R.id.tVJ3R);
-        p4 = (TextView) rootView.findViewById(suecada.example.com.suecada.R.id.tVJ4R);
-        p5 = (TextView) rootView.findViewById(suecada.example.com.suecada.R.id.tVJ5R);
+        j1 = rootView.findViewById(R.id.tBJ1R);
+        j2 = rootView.findViewById(R.id.tBJ2R);
+        j3 = rootView.findViewById(R.id.tBJ3R);
+        j4 = rootView.findViewById(R.id.tbJ4R);
+        j5 = rootView.findViewById(R.id.tBJ5R);
+        p1 = rootView.findViewById(R.id.tVJ1R);
+        p2 = rootView.findViewById(R.id.tVJ2R);
+        p3 = rootView.findViewById(R.id.tVJ3R);
+        p4 = rootView.findViewById(R.id.tVJ4R);
+        p5 = rootView.findViewById(R.id.tVJ5R);
+        idSessao = rootView.findViewById(R.id.tVIdSessao);
 
         /*Button editar = (Button) rootView.findViewById(R.id.btnEditarR);
         editar.setOnClickListener(editarClickListener);
@@ -153,6 +161,8 @@ public class ItaPontosRankedFrag extends Fragment {
         int soma;
         String resultado;
 
+        updateSessionTime();
+
         if (j1.isChecked() && (j2.isChecked() || j3.isChecked() || j4.isChecked() || j5.isChecked())) {
 
             pontos = Integer.valueOf(p1.getText().toString());
@@ -241,6 +251,8 @@ public class ItaPontosRankedFrag extends Fragment {
         int pontos;
         int soma;
         String resultado;
+
+        updateSessionTime();
 
         if (j1.isChecked() && j2.isChecked()) {
             //subtrair a quem perdeu
@@ -816,6 +828,7 @@ public class ItaPontosRankedFrag extends Fragment {
         String jogador3 = getArguments().getString("jogador3");
         String jogador4 = getArguments().getString("jogador4");
         String jogador5 = getArguments().getString("jogador5");
+        String uuidSessao = getArguments().getString("uuid");
 
 
         //Atribuir os nomes aos respetivos botoes
@@ -840,6 +853,7 @@ public class ItaPontosRankedFrag extends Fragment {
         p3.setText("0");
         p4.setText("0");
         p5.setText("0");
+        idSessao.setText(uuidSessao);
 
         j1.setOnCheckedChangeListener(changeChecker);
         j2.setOnCheckedChangeListener(changeChecker);
@@ -916,6 +930,56 @@ public class ItaPontosRankedFrag extends Fragment {
             }
         }
     };
+
+    public void updateSessionTime(){
+
+        String uuid = idSessao.getText().toString();
+
+        //Criar Hashmap com os parametros que queremos colocar no pedido à BD
+        Map<String, String> parametros = new HashMap<>();
+        parametros.put("uuid", uuid);
+
+        //Instanciar DBData para efetuar um request à API
+        DBData dbData = new DBData();
+
+        dbData.fetchResponse(getActivity(), Config.ATUALIZAR_TIMESTAMP_SESSAO,
+                parametros, new VolleyCallback() {
+                    @Override
+                    public void onSuccessResponse(String resposta) {
+
+                        try {
+                            Log.d("RESPOSTA", resposta);
+                            //obter o array "result" na respostaJSON
+                            JSONObject result = new JSONObject(resposta);
+
+                            String sucesso = result.getString("sucesso");
+
+
+                            switch (sucesso) {
+
+                                //Sucesso
+                                case "1":
+                                    //Iniciar nova sessão de jogo
+
+                                    break;
+
+                                default:
+                                    Toast.makeText(getActivity(), "Ocorreu um erro na ligação ao servidor",
+                                            Toast.LENGTH_LONG).show();
+
+                                    break;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
 
 
 }

@@ -101,6 +101,8 @@ public class ItaPontosRankedActivity extends AppCompatActivity {
                     String jogador3 = intent.getExtras().getString("jogador3");
                     String jogador4 = intent.getExtras().getString("jogador4");
                     String jogador5 = intent.getExtras().getString("jogador5");
+                    String UUID = intent.getExtras().getString("uuid");
+
                     ItaPontosRankedFrag itaPontosRankedFrag = ItaPontosRankedFrag.newInstance();
                     Bundle bundle = new Bundle();
                     bundle.putString("jogador1", jogador1.trim());
@@ -108,6 +110,8 @@ public class ItaPontosRankedActivity extends AppCompatActivity {
                     bundle.putString("jogador3", jogador3.trim());
                     bundle.putString("jogador4", jogador4.trim());
                     bundle.putString("jogador5", jogador5.trim());
+                    bundle.putString("uuid", UUID.trim());
+
                     // set Fragmentclass Arguments
 
                     itaPontosRankedFrag.setArguments(bundle);
@@ -122,6 +126,8 @@ public class ItaPontosRankedActivity extends AppCompatActivity {
                     jogador3 = intent.getExtras().getString("jogador3");
                     jogador4 = intent.getExtras().getString("jogador4");
                     jogador5 = intent.getExtras().getString("jogador5");
+                    UUID = intent.getExtras().getString("uuid");
+
                     ItaListaRankedFrag itaListaRankedFrag;
                     itaListaRankedFrag = ItaListaRankedFrag.newInstance();
                     bundle = new Bundle();
@@ -130,6 +136,8 @@ public class ItaPontosRankedActivity extends AppCompatActivity {
                     bundle.putString("jogador3", jogador3.trim());
                     bundle.putString("jogador4", jogador4.trim());
                     bundle.putString("jogador5", jogador5.trim());
+                    bundle.putString("uuid", UUID.trim());
+
                     // set Fragmentclass Arguments
 
 

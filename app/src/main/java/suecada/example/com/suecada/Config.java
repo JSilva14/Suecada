@@ -40,6 +40,6 @@ class Config {
     static final String JOGADORES_URL = SERVER_URL + "getJogadores.php";
     static final String GRUPOS_URL = SERVER_URL + "getGrupos.php";
     static final String GRUPOINFO_URL = SERVER_URL + "getInfoGrupo.php";
-
+    static final String ATUALIZAR_TIMESTAMP_SESSAO = SERVER_URL + "atualizarTimestampSessao.php";
     static final String CRIAR_SESSAO_URL = SERVER_URL + "criarSessaoItaliana.php";
 }
